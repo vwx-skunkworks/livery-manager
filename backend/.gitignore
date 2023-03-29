@@ -3,6 +3,9 @@
 # exposed vendor bin
 /vbin
 
+# ignore phpstorm proj dir
+/.idea
+
 ### Composer ###
 composer.phar
 /vendor/
