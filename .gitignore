@@ -100,6 +100,9 @@ fabric.properties
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
 
+# inspection profiles
+.idea/**/inspectionProfiles/
+
 ### PhpStorm Patch ###
 # Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
 
@@ -134,6 +137,15 @@ modules.xml
 # https://plugins.jetbrains.com/plugin/8053-azure-toolkit-for-intellij
 .idea/**/azureSettings.xml
 
+### PhpStorm+all Patch ###
+# Ignore everything but code style settings and run configurations
+# that are supposed to be shared within teams.
+
+.idea/*
+!.idea/codeStyles
+!.idea/runConfigurations
+!.idea/scopes
+
 ### PHPUnit ###
 # Covers PHPUnit
 # Reference: https://phpunit.de/
@@ -143,8 +155,7 @@ modules.xml
 .phpunit.cache
 
 # PHPUnit
-/app/phpunit.xml
-/phpunit.xml
+phpunit.xml
 
 # Build data
 /build/
