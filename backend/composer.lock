@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9ddefb9e751feb4a068815971fccc32b",
+    "content-hash": "a84c7b837a1fe6432f8d53c2270aa789",
     "packages": [
         {
             "name": "atlas/orm",
@@ -2296,86 +2296,26 @@
     ],
     "packages-dev": [
         {
-            "name": "atlas/cli",
-            "version": "dev-3.x-wip",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/atlasphp/Atlas.Cli.git",
-                "reference": "d74cec54a6246fc67a172610eec6c79dfedf48f7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/atlasphp/Atlas.Cli/zipball/d74cec54a6246fc67a172610eec6c79dfedf48f7",
-                "reference": "d74cec54a6246fc67a172610eec6c79dfedf48f7",
-                "shasum": ""
-            },
-            "require": {
-                "atlas/info": "2.x-dev",
-                "php": "^8.0",
-                "psr/log": "^2.0"
-            },
-            "require-dev": {
-                "pds/skeleton": "^1.0",
-                "phpstan/phpstan": "^1.0",
-                "phpunit/phpunit": "^9.0"
-            },
-            "bin": [
-                "bin/atlas-skeleton.php",
-                "bin/atlas-skeleton-upgrade.php"
-            ],
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Atlas\\Cli\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Atlas.Skeleton Contributors",
-                    "homepage": "https://github.com/atlasphp/Atlas.Skeleton/contributors"
-                }
-            ],
-            "description": "Command-line interface to generate Atlas skeleton classes.",
-            "homepage": "http://github.com/atlasphp/Atlas.Skeleton",
-            "keywords": [
-                "data",
-                "mapper",
-                "mapping",
-                "orm",
-                "sql"
-            ],
-            "support": {
-                "issues": "https://github.com/atlasphp/Atlas.Cli/issues",
-                "source": "https://github.com/atlasphp/Atlas.Cli/tree/3.x-wip"
-            },
-            "time": "2022-09-13T01:43:12+00:00"
-        },
-        {
             "name": "atlas/info",
-            "version": "2.x-dev",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/atlasphp/Atlas.Info.git",
-                "reference": "db49b449bbfdb92670e7cd3cd9e75c08f1704761"
+                "reference": "6c198cc63b19950d25d009e2d7679449407b8183"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/atlasphp/Atlas.Info/zipball/db49b449bbfdb92670e7cd3cd9e75c08f1704761",
-                "reference": "db49b449bbfdb92670e7cd3cd9e75c08f1704761",
+                "url": "https://api.github.com/repos/atlasphp/Atlas.Info/zipball/6c198cc63b19950d25d009e2d7679449407b8183",
+                "reference": "6c198cc63b19950d25d009e2d7679449407b8183",
                 "shasum": ""
             },
             "require": {
-                "atlas/pdo": "2.x-dev",
-                "php": "^8.0"
+                "atlas/pdo": "~1.0",
+                "php": ">=7.1"
             },
             "require-dev": {
-                "pds/skeleton": "^1.0",
-                "phpstan/phpstan": "^0.12.82",
-                "phpunit/phpunit": "^9.0"
+                "pds/skeleton": "~1.0",
+                "phpunit/phpunit": "~7.0"
             },
             "type": "library",
             "autoload": {
@@ -2398,33 +2338,85 @@
             ],
             "support": {
                 "issues": "https://github.com/atlasphp/Atlas.Info/issues",
-                "source": "https://github.com/atlasphp/Atlas.Info/tree/2.x"
+                "source": "https://github.com/atlasphp/Atlas.Info/tree/1.x"
             },
-            "time": "2021-03-30T21:23:17+00:00"
+            "time": "2019-01-22T22:17:54+00:00"
         },
         {
-            "name": "atlas/pdo",
-            "version": "2.x-dev",
+            "name": "atlas/mapper",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/atlasphp/Atlas.Pdo.git",
-                "reference": "64e307fbead435edd28e4c0a3964c5ec38545f03"
+                "url": "https://github.com/atlasphp/Atlas.Mapper.git",
+                "reference": "25b61af3de9f290c3d5ade4136a7c0bcf94f1840"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/atlasphp/Atlas.Pdo/zipball/64e307fbead435edd28e4c0a3964c5ec38545f03",
-                "reference": "64e307fbead435edd28e4c0a3964c5ec38545f03",
+                "url": "https://api.github.com/repos/atlasphp/Atlas.Mapper/zipball/25b61af3de9f290c3d5ade4136a7c0bcf94f1840",
+                "reference": "25b61af3de9f290c3d5ade4136a7c0bcf94f1840",
                 "shasum": ""
             },
             "require": {
-                "php": "^8.0"
+                "atlas/table": "~1.0",
+                "php": ">=7.1.0"
             },
             "require-dev": {
-                "pds/skeleton": "^1.0",
-                "phpstan/phpstan": "^0.12.82",
-                "phpunit/phpunit": "^9.0"
+                "atlas/testing": "~1.0",
+                "pds/skeleton": "~1.0",
+                "phpunit/phpunit": "~7.0"
             },
-            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Atlas\\Mapper\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Atlas Contributors",
+                    "homepage": "https://github.com/atlasphp/Atlas.Mapper/contributors"
+                }
+            ],
+            "description": "A data mapper for the persistence model.",
+            "homepage": "http://github.com/atlasphp/Atlas.Mapper",
+            "keywords": [
+                "data",
+                "mapper",
+                "mapping",
+                "orm",
+                "sql"
+            ],
+            "support": {
+                "issues": "https://github.com/atlasphp/Atlas.Mapper/issues",
+                "source": "https://github.com/atlasphp/Atlas.Mapper/tree/1.4.0"
+            },
+            "time": "2023-03-08T14:28:47+00:00"
+        },
+        {
+            "name": "atlas/pdo",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/atlasphp/Atlas.Pdo.git",
+                "reference": "b64a164290b93bffd2e034dc6e49535afc7dea80"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/atlasphp/Atlas.Pdo/zipball/b64a164290b93bffd2e034dc6e49535afc7dea80",
+                "reference": "b64a164290b93bffd2e034dc6e49535afc7dea80",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "pds/skeleton": "~1.0",
+                "phpunit/phpunit": "~7.0"
+            },
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -2451,9 +2443,134 @@
             ],
             "support": {
                 "issues": "https://github.com/atlasphp/Atlas.Pdo/issues",
-                "source": "https://github.com/atlasphp/Atlas.Pdo/tree/2.x"
+                "source": "https://github.com/atlasphp/Atlas.Pdo/tree/1.2.0"
             },
-            "time": "2021-05-31T18:23:42+00:00"
+            "time": "2020-12-31T16:08:34+00:00"
+        },
+        {
+            "name": "atlas/query",
+            "version": "1.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/atlasphp/Atlas.Query.git",
+                "reference": "9ba960c3dcac619ab55da8d39c28465db973c900"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/atlasphp/Atlas.Query/zipball/9ba960c3dcac619ab55da8d39c28465db973c900",
+                "reference": "9ba960c3dcac619ab55da8d39c28465db973c900",
+                "shasum": ""
+            },
+            "require": {
+                "atlas/pdo": "~1.0",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "pds/skeleton": "~1.0",
+                "phpunit/phpunit": "~7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Atlas\\Query\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Atlas.Query Contributors",
+                    "homepage": "https://github.com/atlasphp/Atlas.Query/contributors"
+                }
+            ],
+            "description": "Object-oriented query builders for MySQL, Postgres, SQLite, and SQLServer.",
+            "homepage": "https://github.com/atlasphp/Atlas.Query",
+            "keywords": [
+                "database",
+                "db",
+                "delete",
+                "dml",
+                "insert",
+                "mysql",
+                "pdo",
+                "pgsql",
+                "postgres",
+                "postgresql",
+                "query",
+                "select",
+                "sql",
+                "sql server",
+                "sqlite",
+                "sqlserver",
+                "update"
+            ],
+            "support": {
+                "issues": "https://github.com/atlasphp/Atlas.Query/issues",
+                "source": "https://github.com/atlasphp/Atlas.Query/tree/1.3.2"
+            },
+            "time": "2021-10-02T14:53:03+00:00"
+        },
+        {
+            "name": "atlas/table",
+            "version": "1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/atlasphp/Atlas.Table.git",
+                "reference": "39fd046956ba5b21b59233b3f91dcdb8f4adcc68"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/atlasphp/Atlas.Table/zipball/39fd046956ba5b21b59233b3f91dcdb8f4adcc68",
+                "reference": "39fd046956ba5b21b59233b3f91dcdb8f4adcc68",
+                "shasum": ""
+            },
+            "require": {
+                "atlas/pdo": "~1.0",
+                "atlas/query": "~1.0",
+                "php": ">=7.1.0"
+            },
+            "require-dev": {
+                "atlas/testing": "~1.0",
+                "pds/skeleton": "~1.0",
+                "phpunit/phpunit": "~7.0"
+            },
+            "suggest": {
+                "atlas/cli": "A command-line tool to build skeleton classes."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Atlas\\Table\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Atlas Contributors",
+                    "homepage": "https://github.com/atlasphp/Atlas.Table/contributors"
+                }
+            ],
+            "description": "Table data gateway implementation for Atlas.",
+            "homepage": "http://github.com/atlasphp/Atlas.Table",
+            "keywords": [
+                "data",
+                "gateway",
+                "mapper",
+                "mapping",
+                "orm",
+                "sql",
+                "table"
+            ],
+            "support": {
+                "issues": "https://github.com/atlasphp/Atlas.Table/issues",
+                "source": "https://github.com/atlasphp/Atlas.Table/tree/1.x"
+            },
+            "time": "2020-09-07T14:43:52+00:00"
         },
         {
             "name": "cakephp/core",
@@ -8487,12 +8604,71 @@
                 }
             ],
             "time": "2021-07-28T10:34:58+00:00"
+        },
+        {
+            "name": "vwx/atlas-cli",
+            "version": "2.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vwx-skunkworks/Atlas.Cli.git",
+                "reference": "c3cdb6f1a9ee012088a9ff1cb99ceb38c6e3443d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vwx-skunkworks/Atlas.Cli/zipball/c3cdb6f1a9ee012088a9ff1cb99ceb38c6e3443d",
+                "reference": "c3cdb6f1a9ee012088a9ff1cb99ceb38c6e3443d",
+                "shasum": ""
+            },
+            "require": {
+                "atlas/info": "~1.0",
+                "atlas/mapper": "~1.0",
+                "php": ">=7.1.0",
+                "psr/log": ">=1.0"
+            },
+            "replace": {
+                "atlas/cli": "2.*"
+            },
+            "require-dev": {
+                "pds/skeleton": "~1.0",
+                "phpunit/phpunit": "~7.0"
+            },
+            "bin": [
+                "bin/atlas-skeleton.php"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Atlas\\Cli\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Atlas.Cli Contributors",
+                    "homepage": "https://github.com/atlasphp/Atlas.Cli/contributors"
+                }
+            ],
+            "description": "Command-line interface for Atlas, VWX fork to update dependencies",
+            "homepage": "http://github.com/atlasphp/Atlas.Cli",
+            "keywords": [
+                "data",
+                "mapper",
+                "mapping",
+                "orm",
+                "sql"
+            ],
+            "support": {
+                "source": "https://github.com/vwx-skunkworks/Atlas.Cli/tree/2.2.3"
+            },
+            "time": "2023-03-31T03:04:47+00:00"
         }
     ],
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "atlas/cli": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": true,

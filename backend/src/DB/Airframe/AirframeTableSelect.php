@@ -3,6 +3,12 @@ declare(strict_types=1);
 
 namespace LiveryManager\DB\Airframe;
 
-class AirframeTableSelect extends _generated\AirframeTableSelect_
+use Atlas\Table\TableSelect;
+
+/**
+ * @method AirframeRow|null fetchRow()
+ * @method AirframeRow[] fetchRows()
+ */
+class AirframeTableSelect extends TableSelect
 {
 }

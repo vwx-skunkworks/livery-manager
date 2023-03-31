@@ -3,6 +3,12 @@ declare(strict_types=1);
 
 namespace LiveryManager\DB\Operation;
 
-class OperationTableSelect extends _generated\OperationTableSelect_
+use Atlas\Table\TableSelect;
+
+/**
+ * @method OperationRow|null fetchRow()
+ * @method OperationRow[] fetchRows()
+ */
+class OperationTableSelect extends TableSelect
 {
 }

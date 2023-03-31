@@ -3,6 +3,12 @@ declare(strict_types=1);
 
 namespace LiveryManager\DB\Developer;
 
-class DeveloperTableSelect extends _generated\DeveloperTableSelect_
+use Atlas\Table\TableSelect;
+
+/**
+ * @method DeveloperRow|null fetchRow()
+ * @method DeveloperRow[] fetchRows()
+ */
+class DeveloperTableSelect extends TableSelect
 {
 }

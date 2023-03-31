@@ -12,6 +12,6 @@ use Atlas\Table\Table;
 use Atlas\Table\TableEvents;
 use PDOStatement;
 
-class SimulatorTableEvents extends _generated\SimulatorTableEvents_
+class SimulatorTableEvents extends TableEvents
 {
 }

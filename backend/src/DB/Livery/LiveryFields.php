@@ -6,8 +6,6 @@ declare(strict_types=1);
 
 namespace LiveryManager\DB\Livery;
 
-use Atlas\Table\Row;
-
 /**
  * @property mixed $id int(10,0) unsigned NOT NULL
  * @property mixed $name varchar(75)
@@ -20,18 +18,6 @@ use Atlas\Table\Row;
  * @property mixed $enabled tinyint(3,0) unsigned NOT NULL
  * @property mixed $created_at datetime NOT NULL
  */
-class LiveryRow extends Row
+trait LiveryFields
 {
-    protected $cols = [
-        'id' => null,
-        'name' => '\'\'',
-        'tailno' => '\'\'',
-        'storage_path' => '\'/unassigned\'',
-        'airframe_id' => null,
-        'livery_type_id' => null,
-        'developer_id' => null,
-        'simulator_id' => null,
-        'enabled' => 1,
-        'created_at' => 'current_timestamp()',
-    ];
 }

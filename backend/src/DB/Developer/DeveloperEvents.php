@@ -11,6 +11,6 @@ use Atlas\Query\Insert;
 use Atlas\Query\Update;
 use PDOStatement;
 
-class DeveloperEvents extends _generated\DeveloperEvents_
+class DeveloperEvents extends MapperEvents
 {
 }

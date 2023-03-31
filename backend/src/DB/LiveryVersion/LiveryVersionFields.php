@@ -6,8 +6,6 @@ declare(strict_types=1);
 
 namespace LiveryManager\DB\LiveryVersion;
 
-use Atlas\Table\Row;
-
 /**
  * @property mixed $id int(10,0) unsigned NOT NULL
  * @property mixed $version int(10,0) unsigned NOT NULL
@@ -15,13 +13,6 @@ use Atlas\Table\Row;
  * @property mixed $enabled tinyint(3,0) unsigned NOT NULL
  * @property mixed $created_at datetime NOT NULL
  */
-class LiveryVersionRow extends Row
+trait LiveryVersionFields
 {
-    protected $cols = [
-        'id' => null,
-        'version' => null,
-        'file_name' => '\'\'',
-        'enabled' => 1,
-        'created_at' => 'current_timestamp()',
-    ];
 }

@@ -3,6 +3,12 @@ declare(strict_types=1);
 
 namespace LiveryManager\DB\LiveryType;
 
-class LiveryTypeRecord extends _generated\LiveryTypeRecord_
+use Atlas\Mapper\Record;
+
+/**
+ * @method LiveryTypeRow getRow()
+ */
+class LiveryTypeRecord extends Record
 {
+    use LiveryTypeFields;
 }

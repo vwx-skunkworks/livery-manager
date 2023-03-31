@@ -11,6 +11,6 @@ use Atlas\Query\Insert;
 use Atlas\Query\Update;
 use PDOStatement;
 
-class LiveryTypeEvents extends _generated\LiveryTypeEvents_
+class LiveryTypeEvents extends MapperEvents
 {
 }

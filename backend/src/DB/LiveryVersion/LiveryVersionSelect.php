@@ -3,6 +3,13 @@ declare(strict_types=1);
 
 namespace LiveryManager\DB\LiveryVersion;
 
-class LiveryVersionSelect extends _generated\LiveryVersionSelect_
+use Atlas\Mapper\MapperSelect;
+
+/**
+ * @method LiveryVersionRecord|null fetchRecord()
+ * @method LiveryVersionRecord[] fetchRecords()
+ * @method LiveryVersionRecordSet fetchRecordSet()
+ */
+class LiveryVersionSelect extends MapperSelect
 {
 }

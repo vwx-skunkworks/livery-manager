@@ -3,6 +3,12 @@ declare(strict_types=1);
 
 namespace LiveryManager\DB\LiveryVersion;
 
-class LiveryVersionTableSelect extends _generated\LiveryVersionTableSelect_
+use Atlas\Table\TableSelect;
+
+/**
+ * @method LiveryVersionRow|null fetchRow()
+ * @method LiveryVersionRow[] fetchRows()
+ */
+class LiveryVersionTableSelect extends TableSelect
 {
 }

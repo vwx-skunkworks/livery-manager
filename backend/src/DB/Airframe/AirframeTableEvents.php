@@ -12,6 +12,6 @@ use Atlas\Table\Table;
 use Atlas\Table\TableEvents;
 use PDOStatement;
 
-class AirframeTableEvents extends _generated\AirframeTableEvents_
+class AirframeTableEvents extends TableEvents
 {
 }

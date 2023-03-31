@@ -3,6 +3,12 @@ declare(strict_types=1);
 
 namespace LiveryManager\DB\Operation;
 
-class OperationRecord extends _generated\OperationRecord_
+use Atlas\Mapper\Record;
+
+/**
+ * @method OperationRow getRow()
+ */
+class OperationRecord extends Record
 {
+    use OperationFields;
 }

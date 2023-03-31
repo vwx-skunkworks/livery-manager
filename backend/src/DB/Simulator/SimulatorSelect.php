@@ -3,6 +3,13 @@ declare(strict_types=1);
 
 namespace LiveryManager\DB\Simulator;
 
-class SimulatorSelect extends _generated\SimulatorSelect_
+use Atlas\Mapper\MapperSelect;
+
+/**
+ * @method SimulatorRecord|null fetchRecord()
+ * @method SimulatorRecord[] fetchRecords()
+ * @method SimulatorRecordSet fetchRecordSet()
+ */
+class SimulatorSelect extends MapperSelect
 {
 }

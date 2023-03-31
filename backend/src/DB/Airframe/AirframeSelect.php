@@ -3,6 +3,13 @@ declare(strict_types=1);
 
 namespace LiveryManager\DB\Airframe;
 
-class AirframeSelect extends _generated\AirframeSelect_
+use Atlas\Mapper\MapperSelect;
+
+/**
+ * @method AirframeRecord|null fetchRecord()
+ * @method AirframeRecord[] fetchRecords()
+ * @method AirframeRecordSet fetchRecordSet()
+ */
+class AirframeSelect extends MapperSelect
 {
 }

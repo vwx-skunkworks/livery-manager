@@ -12,6 +12,6 @@ use Atlas\Table\Table;
 use Atlas\Table\TableEvents;
 use PDOStatement;
 
-class LiveryTableEvents extends _generated\LiveryTableEvents_
+class LiveryTableEvents extends TableEvents
 {
 }

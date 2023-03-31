@@ -12,6 +12,6 @@ use Atlas\Table\Table;
 use Atlas\Table\TableEvents;
 use PDOStatement;
 
-class DeveloperTableEvents extends _generated\DeveloperTableEvents_
+class DeveloperTableEvents extends TableEvents
 {
 }

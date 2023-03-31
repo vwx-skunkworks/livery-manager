@@ -11,6 +11,6 @@ use Atlas\Query\Insert;
 use Atlas\Query\Update;
 use PDOStatement;
 
-class AirframeEvents extends _generated\AirframeEvents_
+class AirframeEvents extends MapperEvents
 {
 }

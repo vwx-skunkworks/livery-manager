@@ -3,6 +3,12 @@ declare(strict_types=1);
 
 namespace LiveryManager\DB\Simulator;
 
-class SimulatorRecord extends _generated\SimulatorRecord_
+use Atlas\Mapper\Record;
+
+/**
+ * @method SimulatorRow getRow()
+ */
+class SimulatorRecord extends Record
 {
+    use SimulatorFields;
 }

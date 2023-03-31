@@ -31,7 +31,6 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require-dev": {
-        "atlas/cli": "dev-3.x-wip",
         "mockery/mockery": "^1.5",
         "nunomaduro/phpinsights": "^2.8",
         "odan/phinx-migrations-generator": "^5.7",
@@ -44,7 +43,8 @@
         "roave/security-advisories": "dev-latest",
         "robmorgan/phinx": "^0.13.4",
         "spaze/phpstan-disallowed-calls": "^2.12",
-        "symplify/easy-coding-standard": "^11.3"
+        "symplify/easy-coding-standard": "^11.3",
+        "vwx/atlas-cli": "^2.*"
     },
     "require": {
         "php": ">=8.1",
