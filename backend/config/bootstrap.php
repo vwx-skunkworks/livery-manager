@@ -19,7 +19,14 @@ declare(strict_types=1);
 
 use LiveryManager\Factory\ContainerFactory;
 use Slim\App;
+use VatRadar\Env\Env;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-return ContainerFactory::createInstance()->get(App::class);
+Env::init(__DIR__.'/../');
+
+try {
+    return ContainerFactory::createInstance()->get(App::class);
+} catch (Throwable) {
+    echo 'UNABLE TO INITIALIZE APPLICATION'.PHP_EOL;
+}

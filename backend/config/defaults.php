@@ -17,11 +17,16 @@
 
 declare(strict_types=1);
 
+use Monolog\Level;
+use VatRadar\Env\Env;
+
+
 // Application default settings
 
-// Error reporting
-use Monolog\Level;
+// Ensure environment variables are loaded
+Env::init(__DIR__.'/../');
 
+// Error reporting
 error_reporting(0);
 ini_set('display_errors', '0');
 ini_set('display_startup_errors', '0');
@@ -47,6 +52,17 @@ $settings['logger'] = [
     'path' => __DIR__ . '/../logs',
     // Default log level
     'level' => Level::Info,
+];
+
+// Default DB settings
+$settings['atlas'] = [
+    'namespace' => 'LiveryManager\DB',
+    'directory' => __DIR__ . '/../src/DB',
+     'pdo' => [
+         'mysql:dbname='.Env::get('DB_DATABASE').';host='.Env::get('DB_HOST'),
+         Env::get('DB_USER'),
+         Env::get('DB_PASS'),
+    ],
 ];
 
 return $settings;
