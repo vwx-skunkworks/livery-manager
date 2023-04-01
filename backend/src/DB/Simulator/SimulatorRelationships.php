@@ -20,7 +20,7 @@ use LiveryManager\DB\Airframe\Airframe;
 
 class SimulatorRelationships extends MapperRelationships
 {
-    protected function define()
+    protected function define(): void
     {
         $this->oneToMany('airframes', Airframe::class);
     }

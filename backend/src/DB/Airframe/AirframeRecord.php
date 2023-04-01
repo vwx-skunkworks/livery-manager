@@ -16,11 +16,9 @@ declare(strict_types=1);
 namespace LiveryManager\DB\Airframe;
 
 use Atlas\Mapper\Record;
-use LiveryManager\Domain\Operation;
 
 /**
  * @method AirframeRow getRow()
- * @property Operation$operation
  */
 class AirframeRecord extends Record
 {

@@ -20,7 +20,7 @@ use LiveryManager\DB\Livery\Livery;
 
 class LiveryVersionRelationships extends MapperRelationships
 {
-    protected function define()
+    protected function define(): void
     {
         $this->oneToOne('livery', Livery::class);
     }

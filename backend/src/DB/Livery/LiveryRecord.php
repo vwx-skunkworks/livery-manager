@@ -16,17 +16,9 @@ declare(strict_types=1);
 namespace LiveryManager\DB\Livery;
 
 use Atlas\Mapper\Record;
-use LiveryManager\DB\Airframe\Airframe;
-use LiveryManager\DB\Developer\Developer;
-use LiveryManager\DB\LiveryType\LiveryType;
-use LiveryManager\DB\Simulator\Simulator;
 
 /**
  * @method LiveryRow getRow()
- * @property Airframe $airframe
- * @property LiveryType $liveryType
- * @property Developer$developer
- * @property Simulator$simulator
  */
 class LiveryRecord extends Record
 {
