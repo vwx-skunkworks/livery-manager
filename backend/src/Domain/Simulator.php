@@ -17,26 +17,39 @@ namespace LiveryManager\Domain;
 
 use DateTimeInterface;
 use JsonSerializable;
+use LiveryManager\Domain\Interface\CreatedAtInterface;
 use LiveryManager\Domain\Interface\SimulatorInterface;
+use Odan\Tsid\Tsid;
 
 // TODO: add airframes array
-class Simulator implements SimulatorInterface, JsonSerializable
+class Simulator implements SimulatorInterface, CreatedAtInterface, JsonSerializable
 {
+
     public function __construct(
-        public readonly ?int $id,
-        public readonly string $name,
+        public readonly Tsid $uid,
+        public string $name,
         public readonly DateTimeInterface $createdAt,
-    ) {
+    ) {}
+
+    public function getId(): int
+    {
+        return $this->uid->toInt();
     }
 
-    public function getId(): ?int
+    public function getUid(): string
     {
-        return $this->id;
+        return $this->uid->toString();
     }
 
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+        return $this;
     }
 
     public function getCreatedAt(): DateTimeInterface
@@ -46,6 +59,11 @@ class Simulator implements SimulatorInterface, JsonSerializable
 
     public function jsonSerialize(): array
     {
-        return ['id' => $this->getId(), 'name' => $this->getName(), 'createdAt' => $this->getCreatedAt()];
+        return [
+            'id' => $this->getId(),
+            'uid' => $this->getUid(),
+            'name' => $this->getName(),
+            'createdAt' => $this->getCreatedAt()
+        ];
     }
 }

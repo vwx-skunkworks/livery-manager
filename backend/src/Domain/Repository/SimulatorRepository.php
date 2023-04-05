@@ -15,31 +15,76 @@ declare(strict_types=1);
 
 namespace LiveryManager\Domain\Repository;
 
-use DomainException;
+use Atlas\Mapper\Record;
+use DateTimeImmutable;
+use Exception;
 use LiveryManager\DB\Simulator\Simulator as Mapper;
-use LiveryManager\DB\Simulator\SimulatorRecord;
 use LiveryManager\Domain\Simulator;
 
-class SimulatorRepository
+use function in_array;
+
+class SimulatorRepository extends RepositoryCommon
 {
-    public function __construct(private readonly Mapper $mapper) {}
+    protected array $fields = ['name'];
 
-    public function fetch(int $id): Simulator
+    public function fetchAll(): array
     {
-        if(!$record = $this->mapper->fetchRecord($id))
-        {
-            throw new DomainException('Invalid ID: ' .$id);
-        }
-
-        return static::new($record);
+        return $this->baseFetchAll(Mapper::class);
     }
 
-    public static function new(SimulatorRecord $record): Simulator
+    /**
+     * @throws Exception
+     */
+    public function fetch(int $id): Simulator
+    {
+        $record = $this->baseFetch(Mapper::class, $id);
+        return $this->fromRecord($record);
+    }
+
+    public function create(array $data): int
+    {
+        return $this->baseCreate(
+            Mapper::class,
+            $this->filter($data)
+        );
+    }
+
+    public function update(int $id, array $data): bool
+    {
+        return $this->baseUpdate(Mapper::class, $id, $data);
+    }
+
+    public function delete(int $id): bool
+    {
+        return $this->baseDelete(Mapper::class, $id);
+    }
+
+    protected function filter(array $data): array
+    {
+        $return = [];
+        foreach($data as $k => $v) {
+            if(in_array($k, $this->fields, true)) {
+                $return[$k] = $v;
+            }
+        }
+
+        return $return;
+    }
+
+    public function new(string $name): Simulator
+    {
+        return new Simulator($this->uid->generate(), $name, new DateTimeImmutable());
+    }
+
+    /**
+     * @throws Exception
+     */
+    protected function fromRecord(Record $record): Simulator
     {
         return new Simulator(
-            $record->id,
+            $this->tsid($record->id),
             $record->name,
-            $record->created_at
+             new DateTimeImmutable($record->created_at)
         );
     }
 }

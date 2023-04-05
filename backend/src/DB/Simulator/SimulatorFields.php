@@ -7,7 +7,7 @@ declare(strict_types=1);
 namespace LiveryManager\DB\Simulator;
 
 /**
- * @property mixed $id int(10,0) unsigned NOT NULL
+ * @property mixed $id bigint(20,0) unsigned NOT NULL
  * @property mixed $name varchar(50) NOT NULL
  * @property mixed $created_at datetime NOT NULL
  * @property null|\LiveryManager\DB\Airframe\AirframeRecordSet $airframes

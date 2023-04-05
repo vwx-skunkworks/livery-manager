@@ -15,9 +15,9 @@ declare(strict_types=1);
 
 namespace LiveryManager\Domain\Interface;
 
-interface SimulatorInterface extends IdentifierInterface
-{
+use DateTimeInterface;
 
-    public function getName(): string;
-    public function setName(string $name): self;
+interface CreatedAtInterface
+{
+    public function getCreatedAt(): DateTimeInterface;
 }

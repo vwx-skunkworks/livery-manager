@@ -15,9 +15,8 @@ declare(strict_types=1);
 
 namespace LiveryManager\Domain\Interface;
 
-interface SimulatorInterface extends IdentifierInterface
+interface IdentifierInterface
 {
-
-    public function getName(): string;
-    public function setName(string $name): self;
+    public function getId(): int;
+    public function getUid(): string;
 }
