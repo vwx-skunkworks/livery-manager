@@ -17,63 +17,63 @@ use Atlas\Table\Table;
  */
 class SimulatorTable extends Table
 {
-    const DRIVER = 'mysql';
+    public const DRIVER = 'mysql';
 
-    const NAME = 'simulator';
+    public const NAME = 'simulator';
 
-    const COLUMNS = [
-        'id' => array (
+    public const COLUMNS = [
+        'id' => array(
   'name' => 'id',
   'type' => 'int unsigned',
   'size' => 10,
   'scale' => 0,
   'notnull' => true,
-  'default' => NULL,
-  'autoinc' => false,
+  'default' => null,
+  'autoinc' => true,
   'primary' => true,
-  'options' => NULL,
+  'options' => null,
 ),
-        'name' => array (
+        'name' => array(
   'name' => 'name',
   'type' => 'varchar',
   'size' => 50,
-  'scale' => NULL,
+  'scale' => null,
   'notnull' => true,
   'default' => '\'\'',
   'autoinc' => false,
   'primary' => false,
-  'options' => NULL,
+  'options' => null,
 ),
-        'created_at' => array (
+        'created_at' => array(
   'name' => 'created_at',
   'type' => 'datetime',
-  'size' => NULL,
-  'scale' => NULL,
+  'size' => null,
+  'scale' => null,
   'notnull' => true,
   'default' => 'current_timestamp()',
   'autoinc' => false,
   'primary' => false,
-  'options' => NULL,
+  'options' => null,
 ),
     ];
 
-    const COLUMN_NAMES = [
+    public const COLUMN_NAMES = [
         'id',
         'name',
         'created_at',
     ];
 
-    const COLUMN_DEFAULTS = [
+    public const COLUMN_DEFAULTS = [
         'id' => null,
         'name' => '\'\'',
         'created_at' => 'current_timestamp()',
     ];
 
-    const PRIMARY_KEY = [
+    public const PRIMARY_KEY = [
         'id',
     ];
 
-    const AUTOINC_COLUMN = null;
+    public const AUTOINC_COLUMN = 'id';
 
-    const AUTOINC_SEQUENCE = null;
+    public const AUTOINC_SEQUENCE = null;
 }

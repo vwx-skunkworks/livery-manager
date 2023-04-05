@@ -22,6 +22,6 @@ class OperationRelationships extends MapperRelationships
 {
     protected function define(): void
     {
-        $this->oneToMany('airframes', Airframe::CLASS);
+        $this->oneToMany('airframes', Airframe::class);
     }
 }
