@@ -1,22 +1,21 @@
 <?php
-/**
- * .
+/*
+ * Copyright (c) 2023 VWX Systems
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or any later version.
  *
- *     Flight Sim Livery Manager
- *     Copyright (c) 2023  VWX Systems
- *
- *     This program is free software: you can redistribute it and/or modify
- *     it under the terms of the GNU Lesser General Public License as published by
- *     the Free Software Foundation, either version 3 of the License, or any later version.
- *
- *     This program is distributed in the hope that it will be useful,
- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *     GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  */
 
 declare(strict_types=1);
 
+use Atlas\Orm\Atlas;
+use Atlas\Orm\AtlasBuilder;
+use DI\Bridge\Slim\Bridge;
 use LiveryManager\Factory\LoggerFactory;
 use LiveryManager\Handler\DefaultErrorHandler;
 use Nyholm\Psr7\Factory\Psr17Factory;
@@ -28,16 +27,15 @@ use Psr\Http\Message\UploadedFileFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
 use Selective\BasePath\BasePathMiddleware;
 use Slim\App;
-use Slim\Factory\AppFactory;
 use Slim\Interfaces\RouteParserInterface;
 use Slim\Middleware\ErrorMiddleware;
 
 return [
     // App settings
-    'settings' => static fn() => require __DIR__ . '/settings.php',
+    'settings' => static fn () => require __DIR__ . '/settings.php',
 
-    App::class => static function(ContainerInterface $container): App {
-        $app = AppFactory::createFromContainer($container);
+    App::class => static function (ContainerInterface $container): App {
+        $app = Bridge::create($container);
 
         // route registration
         (require __DIR__ . '/routes.php')($app);
@@ -103,6 +101,22 @@ return [
         $errorMiddleware->setDefaultErrorHandler($container->get(DefaultErrorHandler::class));
 
         return $errorMiddleware;
+    },
+
+    Atlas::class => static function (ContainerInterface $container): Atlas {
+        $settings = $container->get('settings')['atlas']['pdo'];
+
+        $builder = new AtlasBuilder(
+            $settings[0],
+            $settings[1],
+            $settings[2],
+        );
+
+        $builder->setFactory(function (string $class) use ($container) {
+            return $container->get($class);
+        });
+
+        return $builder->newAtlas();
     },
 
 ];

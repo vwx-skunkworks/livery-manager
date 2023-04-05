@@ -21,7 +21,7 @@ use VatRadar\Env\Env;
 
 $envFile = __DIR__ . '/../.env';
 
-if(file_exists($envFile)) {
+if (file_exists($envFile)) {
     Env::init($envFile);
 }
 
