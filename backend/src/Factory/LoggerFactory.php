@@ -73,9 +73,8 @@ final class LoggerFactory
 
     public function addFileHandler(string $filename, Level $level = null): self
     {
-        if(str_starts_with($this->path, 'php')) {
+        if (str_starts_with($this->path, 'php')) {
             return $this->addConsoleHandler($level);
-
         }
 
         $filename = sprintf('%s/%s', $this->path, $filename);
