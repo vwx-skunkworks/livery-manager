@@ -19,7 +19,7 @@ use DateTimeInterface;
 
 interface SimulatorInterface
 {
-    public function getId(): int;
+    public function getId(): ?int;
     public function getName(): string;
     public function getCreatedAt(): DateTimeInterface;
 }

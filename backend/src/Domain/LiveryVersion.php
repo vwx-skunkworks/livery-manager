@@ -16,21 +16,23 @@ declare(strict_types=1);
 namespace LiveryManager\Domain;
 
 use DateTimeInterface;
+use JsonSerializable;
 use LiveryManager\Domain\Interface\LiveryVersionInterface;
 
-class LiveryVersion implements LiveryVersionInterface
+class LiveryVersion implements LiveryVersionInterface, JsonSerializable
 {
     public function __construct(
-        private readonly int $id,
+        private readonly ?int $id,
         private readonly ?Livery $livery,
         private readonly int $version,
         private readonly string $changelog,
         private readonly string $fileName,
         private readonly bool $enabled,
         private readonly DateTimeInterface $createdAt
-    ) {}
+    ) {
+    }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -63,5 +65,18 @@ class LiveryVersion implements LiveryVersionInterface
     public function getCreatedAt(): DateTimeInterface
     {
         return $this->createdAt;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'livery' => $this->getLivery(),
+            'version' => $this->getVersion(),
+            'changelog' => $this->getChangelog(),
+            'fileName' => $this->getFileName(),
+            'enabled' => $this->getEnabled(),
+            'createdAt' => $this->getCreatedAt()
+        ];
     }
 }

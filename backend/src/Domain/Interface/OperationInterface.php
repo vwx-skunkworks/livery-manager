@@ -19,7 +19,7 @@ use DateTimeInterface;
 
 interface OperationInterface
 {
-    public function getId(): int;
+    public function getId(): ?int;
     public function getName(): string;
     public function getCreatedAt(): DateTimeInterface;
 }

@@ -19,7 +19,7 @@ use DateTimeInterface;
 
 interface DeveloperInterface
 {
-    public function getId(): int;
+    public function getId(): ?int;
     public function getName(): string;
     public function getAirframes(): ?array;
     public function getCreatedAt(): DateTimeInterface;

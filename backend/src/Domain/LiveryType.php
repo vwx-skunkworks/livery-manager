@@ -16,19 +16,21 @@ declare(strict_types=1);
 namespace LiveryManager\Domain;
 
 use DateTimeInterface;
+use JsonSerializable;
 use LiveryManager\Domain\Interface\LiveryTypeInterface;
 
 // TODO: add liveries array
-class LiveryType implements LiveryTypeInterface
+class LiveryType implements LiveryTypeInterface, JsonSerializable
 {
     public function __construct(
-        private readonly int $id,
+        private readonly ?int $id,
         private readonly string $name,
         private readonly string $description,
         private readonly DateTimeInterface $createdAt,
-    ) {}
+    ) {
+    }
     
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -46,5 +48,10 @@ class LiveryType implements LiveryTypeInterface
     public function getCreatedAt(): DateTimeInterface
     {
         return $this->createdAt;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return ['id' => $this->getId(), 'name' => $this->getName(), 'description' => $this->getDescription(), 'createdAt' => $this->getCreatedAt()];
     }
 }

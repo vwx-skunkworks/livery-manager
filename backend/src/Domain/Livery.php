@@ -16,13 +16,14 @@ declare(strict_types=1);
 namespace LiveryManager\Domain;
 
 use DateTimeInterface;
+use JsonSerializable;
 use LiveryManager\Domain\Interface\LiveryInterface;
 
 // TODO: add liveries array
-class Livery implements LiveryInterface
+class Livery implements LiveryInterface, JsonSerializable
 {
     public function __construct(
-        private readonly int $id,
+        private readonly ?int $id,
         private readonly ?Airframe $airframe,
         private readonly ?LiveryType $liveryType,
         private readonly string $name,
@@ -31,9 +32,10 @@ class Livery implements LiveryInterface
         private readonly string $description,
         private readonly bool $enabled,
         private readonly DateTimeInterface $createdAt
-    ) {}
+    ) {
+    }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -76,5 +78,20 @@ class Livery implements LiveryInterface
     public function getCreatedAt(): DateTimeInterface
     {
         return $this->createdAt;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'airframe' => $this->getAirframe(),
+            'type' => $this->getLiveryType(),
+            'name' => $this->getName(),
+            'tailNumber' => $this->getTailNumber(),
+            'storagePath' => $this->getStoragePath(),
+            'description' => $this->getDescription(),
+            'enabled' => $this->getEnabled(),
+            'createdAt' => $this->getCreatedAt(),
+        ];
     }
 }

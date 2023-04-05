@@ -21,7 +21,7 @@ use LiveryManager\Domain\LiveryType;
 
 interface LiveryInterface
 {
-    public function getId(): int;
+    public function getId(): ?int;
     public function getAirframe(): Airframe;
     public function getLiveryType(): LiveryType;
     public function getName(): string;

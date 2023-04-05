@@ -16,12 +16,13 @@ declare(strict_types=1);
 namespace LiveryManager\Domain;
 
 use DateTimeInterface;
+use JsonSerializable;
 use LiveryManager\Domain\Interface\AirframeInterface;
 
-class Airframe implements AirframeInterface
+class Airframe implements AirframeInterface, JsonSerializable
 {
     public function __construct(
-        private readonly int $id,
+        private readonly ?int $id,
         private readonly ?Operation $operation,
         private readonly ?Developer $developer,
         private readonly ?Simulator $simulator,
@@ -30,9 +31,10 @@ class Airframe implements AirframeInterface
         private readonly ?string $description,
         private readonly bool $enabled,
         private readonly DateTimeInterface $createdAt
-    ) {}
+    ) {
+    }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -75,5 +77,20 @@ class Airframe implements AirframeInterface
     public function getCreatedAt(): DateTimeInterface
     {
         return $this->createdAt;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'operation' => $this->getOperation(),
+            'developer' => $this->getDeveloper(),
+            'simulator' => $this->getSimulator(),
+            'name' => $this->getName(),
+            'icao' => $this->getIcao(),
+            'description' => $this->getDescription(),
+            'enabled' => $this->getEnabled(),
+            'createdAt' => $this->getCreatedAt()
+        ];
     }
 }

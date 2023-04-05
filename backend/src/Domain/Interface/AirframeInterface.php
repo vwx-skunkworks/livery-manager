@@ -22,7 +22,7 @@ use LiveryManager\Domain\Simulator;
 
 interface AirframeInterface
 {
-    public function getId(): int;
+    public function getId(): ?int;
     public function getOperation(): ?Operation;
     public function getDeveloper(): ?Developer;
     public function getSimulator(): ?Simulator;

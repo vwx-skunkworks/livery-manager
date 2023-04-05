@@ -16,18 +16,20 @@ declare(strict_types=1);
 namespace LiveryManager\Domain;
 
 use DateTimeInterface;
+use JsonSerializable;
 use LiveryManager\Domain\Interface\OperationInterface;
 
 // TODO: add airframes array
-class Operation implements OperationInterface
+class Operation implements OperationInterface, JsonSerializable
 {
     public function __construct(
-        private readonly int $id,
+        private readonly ?int $id,
         private readonly string $name,
         private readonly DateTimeInterface $createdAt,
-    ) {}
+    ) {
+    }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -40,5 +42,10 @@ class Operation implements OperationInterface
     public function getCreatedAt(): DateTimeInterface
     {
         return $this->createdAt;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return ['id' => $this->getId(), 'name' => $this->getName(), 'createdAt' => $this->getCreatedAt()];
     }
 }

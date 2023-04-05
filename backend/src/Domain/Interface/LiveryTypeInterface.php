@@ -19,7 +19,7 @@ use DateTimeInterface;
 
 interface LiveryTypeInterface
 {
-    public function getId(): int;
+    public function getId(): ?int;
     public function getName(): string;
     public function getDescription(): string;
     public function getCreatedAt(): DateTimeInterface;

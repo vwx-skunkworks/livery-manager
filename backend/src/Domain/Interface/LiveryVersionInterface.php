@@ -20,7 +20,7 @@ use LiveryManager\Domain\Livery;
 
 interface LiveryVersionInterface
 {
-    public function getId(): int;
+    public function getId(): ?int;
     public function getLivery(): ?Livery;
     public function getVersion(): int;
     public function getChangelog(): string;
