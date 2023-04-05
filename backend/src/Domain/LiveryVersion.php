@@ -22,13 +22,13 @@ use LiveryManager\Domain\Interface\LiveryVersionInterface;
 class LiveryVersion implements LiveryVersionInterface, JsonSerializable
 {
     public function __construct(
-        private readonly ?int $id,
-        private readonly ?Livery $livery,
-        private readonly int $version,
-        private readonly string $changelog,
-        private readonly string $fileName,
-        private readonly bool $enabled,
-        private readonly DateTimeInterface $createdAt
+        public readonly ?int $id,
+        public readonly ?Livery $livery,
+        public readonly int $version,
+        public readonly string $changelog,
+        public readonly string $fileName,
+        public readonly bool $enabled,
+        public readonly DateTimeInterface $createdAt
     ) {
     }
 

@@ -23,9 +23,9 @@ use LiveryManager\Domain\Interface\SimulatorInterface;
 class Simulator implements SimulatorInterface, JsonSerializable
 {
     public function __construct(
-        private readonly ?int $id,
-        private readonly string $name,
-        private readonly DateTimeInterface $createdAt,
+        public readonly ?int $id,
+        public readonly string $name,
+        public readonly DateTimeInterface $createdAt,
     ) {
     }
 

@@ -23,10 +23,10 @@ use LiveryManager\Domain\Interface\LiveryTypeInterface;
 class LiveryType implements LiveryTypeInterface, JsonSerializable
 {
     public function __construct(
-        private readonly ?int $id,
-        private readonly string $name,
-        private readonly string $description,
-        private readonly DateTimeInterface $createdAt,
+        public readonly ?int $id,
+        public readonly string $name,
+        public readonly string $description,
+        public readonly DateTimeInterface $createdAt,
     ) {
     }
     

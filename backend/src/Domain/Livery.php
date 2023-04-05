@@ -23,15 +23,15 @@ use LiveryManager\Domain\Interface\LiveryInterface;
 class Livery implements LiveryInterface, JsonSerializable
 {
     public function __construct(
-        private readonly ?int $id,
-        private readonly ?Airframe $airframe,
-        private readonly ?LiveryType $liveryType,
-        private readonly string $name,
-        private readonly string $tailNumber,
-        private readonly string $storagePath,
-        private readonly string $description,
-        private readonly bool $enabled,
-        private readonly DateTimeInterface $createdAt
+        public readonly ?int $id,
+        public readonly ?Airframe $airframe,
+        public readonly ?LiveryType $liveryType,
+        public readonly string $name,
+        public readonly string $tailNumber,
+        public readonly string $storagePath,
+        public readonly string $description,
+        public readonly bool $enabled,
+        public readonly DateTimeInterface $createdAt
     ) {
     }
 

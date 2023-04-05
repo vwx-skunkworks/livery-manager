@@ -22,10 +22,10 @@ use LiveryManager\Domain\Interface\DeveloperInterface;
 class Developer implements DeveloperInterface, JsonSerializable
 {
     public function __construct(
-        private readonly ?int $id,
-        private readonly string $name,
-        private readonly array $airframes,
-        private readonly DateTimeInterface $createdAt,
+        public readonly ?int $id,
+        public readonly string $name,
+        public readonly array $airframes,
+        public readonly DateTimeInterface $createdAt,
     ) {
     }
 

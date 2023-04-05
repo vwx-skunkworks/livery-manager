@@ -22,15 +22,15 @@ use LiveryManager\Domain\Interface\AirframeInterface;
 class Airframe implements AirframeInterface, JsonSerializable
 {
     public function __construct(
-        private readonly ?int $id,
-        private readonly ?Operation $operation,
-        private readonly ?Developer $developer,
-        private readonly ?Simulator $simulator,
-        private readonly string $name,
-        private readonly string $icao,
-        private readonly ?string $description,
-        private readonly bool $enabled,
-        private readonly DateTimeInterface $createdAt
+        public readonly ?int $id,
+        public readonly ?Operation $operation,
+        public readonly ?Developer $developer,
+        public readonly ?Simulator $simulator,
+        public readonly string $name,
+        public readonly string $icao,
+        public readonly ?string $description,
+        public readonly bool $enabled,
+        public readonly DateTimeInterface $createdAt
     ) {
     }
 
