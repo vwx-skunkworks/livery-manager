@@ -44,19 +44,20 @@
         "robmorgan/phinx": "^0.13.4",
         "spaze/phpstan-disallowed-calls": "^2.12",
         "symplify/easy-coding-standard": "^11.3",
-        "vwx/atlas-cli": "^2.*"
+        "vwx/atlas-cli": "^2.2"
     },
     "require": {
         "php": ">=8.1",
         "ext-json": "*",
         "ext-pdo": "*",
-        "atlas/orm": "^2.8",
+        "atlas/orm": "^3.1",
         "cakephp/chronos": "^2.3",
         "fig/http-message-util": "^1.1",
         "monolog/monolog": "^3.3",
         "nyholm/psr7": "^1.5",
         "nyholm/psr7-server": "^1.0",
         "php-di/php-di": "^7.0",
+        "php-di/slim-bridge": "^3.3",
         "selective/basepath": "^2.1",
         "slim/flash": "^0.4.0",
         "slim/slim": "4.*",

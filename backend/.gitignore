@@ -2,10 +2,10 @@
 
 # exposed vendor bin
 /vbin
-
+# logs
+/logs
 # ignore .env files
 .env
-
 # ignore phpstorm proj dir
 /.idea
 
