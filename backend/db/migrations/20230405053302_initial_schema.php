@@ -1,19 +1,8 @@
 <?php
-/*
- * Copyright (c) 2023 VWX Systems
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- */
 
 use Phinx\Db\Adapter\MysqlAdapter;
 
-class InitialSchemaUpdates extends Phinx\Migration\AbstractMigration
+class InitialSchema extends Phinx\Migration\AbstractMigration
 {
     public function change()
     {
@@ -29,18 +18,18 @@ class InitialSchemaUpdates extends Phinx\Migration\AbstractMigration
             ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => MysqlAdapter::INT_BIG,
                 'signed' => false,
             ])
             ->addColumn('airframe_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => MysqlAdapter::INT_BIG,
                 'signed' => false,
                 'after' => 'id',
             ])
             ->addColumn('livery_type_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => MysqlAdapter::INT_BIG,
                 'signed' => false,
                 'after' => 'airframe_id',
             ])
@@ -87,24 +76,6 @@ class InitialSchemaUpdates extends Phinx\Migration\AbstractMigration
                 'default' => 'CURRENT_TIMESTAMP',
                 'after' => 'enabled',
             ])
-            ->addIndex(['livery_type_id'], [
-                'name' => 'fk_livery_type_airframe',
-                'unique' => false,
-            ])
-            ->addIndex(['airframe_id'], [
-                'name' => 'fk_livery_airframe',
-                'unique' => false,
-            ])
-            ->addForeignKey('airframe_id', 'airframe', 'id', [
-                'constraint' => 'fk_livery_airframe',
-                'update' => 'RESTRICT',
-                'delete' => 'RESTRICT',
-            ])
-            ->addForeignKey('livery_type_id', 'livery_type', 'id', [
-                'constraint' => 'fk_livery_type_airframe',
-                'update' => 'RESTRICT',
-                'delete' => 'RESTRICT',
-            ])
             ->create();
         $this->table('operation', [
                 'id' => false,
@@ -117,7 +88,7 @@ class InitialSchemaUpdates extends Phinx\Migration\AbstractMigration
             ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => MysqlAdapter::INT_BIG,
                 'signed' => false,
             ])
             ->addColumn('name', 'string', [
@@ -149,7 +120,7 @@ class InitialSchemaUpdates extends Phinx\Migration\AbstractMigration
             ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => MysqlAdapter::INT_BIG,
                 'signed' => false,
             ])
             ->addColumn('name', 'string', [
@@ -181,7 +152,7 @@ class InitialSchemaUpdates extends Phinx\Migration\AbstractMigration
             ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => MysqlAdapter::INT_BIG,
                 'signed' => false,
             ])
             ->addColumn('name', 'string', [
@@ -213,7 +184,7 @@ class InitialSchemaUpdates extends Phinx\Migration\AbstractMigration
             ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => MysqlAdapter::INT_BIG,
                 'signed' => false,
             ])
             ->addColumn('name', 'string', [
@@ -244,7 +215,7 @@ class InitialSchemaUpdates extends Phinx\Migration\AbstractMigration
             ->create();
         $this->table('livery_version', [
                 'id' => false,
-                'primary_key' => ['file_name'],
+                'primary_key' => ['id'],
                 'engine' => 'InnoDB',
                 'encoding' => 'utf8mb4',
                 'collation' => 'utf8mb4_general_ci',
@@ -253,12 +224,12 @@ class InitialSchemaUpdates extends Phinx\Migration\AbstractMigration
             ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => MysqlAdapter::INT_BIG,
                 'signed' => false,
             ])
             ->addColumn('livery_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => MysqlAdapter::INT_BIG,
                 'signed' => false,
                 'after' => 'id',
             ])
@@ -299,15 +270,6 @@ class InitialSchemaUpdates extends Phinx\Migration\AbstractMigration
                 'name' => 'file_name',
                 'unique' => true,
             ])
-            ->addIndex(['livery_id'], [
-                'name' => 'fk_livery_version_livery',
-                'unique' => false,
-            ])
-            ->addForeignKey('livery_id', 'livery', 'id', [
-                'constraint' => 'fk_livery_version_livery',
-                'update' => 'RESTRICT',
-                'delete' => 'RESTRICT',
-            ])
             ->create();
         $this->table('airframe', [
                 'id' => false,
@@ -320,24 +282,24 @@ class InitialSchemaUpdates extends Phinx\Migration\AbstractMigration
             ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => MysqlAdapter::INT_BIG,
                 'signed' => false,
             ])
             ->addColumn('operation_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => MysqlAdapter::INT_BIG,
                 'signed' => false,
                 'after' => 'id',
             ])
             ->addColumn('developer_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => MysqlAdapter::INT_BIG,
                 'signed' => false,
                 'after' => 'operation_id',
             ])
             ->addColumn('simulator_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => MysqlAdapter::INT_BIG,
                 'signed' => false,
                 'after' => 'developer_id',
             ])
@@ -375,33 +337,6 @@ class InitialSchemaUpdates extends Phinx\Migration\AbstractMigration
                 'null' => false,
                 'default' => 'CURRENT_TIMESTAMP',
                 'after' => 'enabled',
-            ])
-            ->addIndex(['operation_id'], [
-                'name' => 'fk_airframe_operation',
-                'unique' => false,
-            ])
-            ->addIndex(['developer_id'], [
-                'name' => 'fk_airframe_developer',
-                'unique' => false,
-            ])
-            ->addIndex(['simulator_id'], [
-                'name' => 'fk_airframe_simulator',
-                'unique' => false,
-            ])
-            ->addForeignKey('developer_id', 'developer', 'id', [
-                'constraint' => 'fk_airframe_developer',
-                'update' => 'RESTRICT',
-                'delete' => 'RESTRICT',
-            ])
-            ->addForeignKey('operation_id', 'operation', 'id', [
-                'constraint' => 'fk_airframe_operation',
-                'update' => 'RESTRICT',
-                'delete' => 'RESTRICT',
-            ])
-            ->addForeignKey('simulator_id', 'simulator', 'id', [
-                'constraint' => 'fk_airframe_simulator',
-                'update' => 'RESTRICT',
-                'delete' => 'RESTRICT',
             ])
             ->create();
         $this->execute('SET unique_checks=1; SET foreign_key_checks=1;');
