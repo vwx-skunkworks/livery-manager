@@ -28,9 +28,9 @@ class Simulator implements SimulatorInterface, CreatedAtInterface, JsonSerializa
     use CreatedAtTrait;
 
     public function __construct(
-        public readonly Tsid $uid,
+        private readonly Tsid $uid,
         public string $name,
-        public readonly DateTimeInterface $createdAt,
+        private readonly DateTimeInterface $createdAt,
     ) {}
 
     public function getName(): string
@@ -43,7 +43,7 @@ class Simulator implements SimulatorInterface, CreatedAtInterface, JsonSerializa
         $this->name = $name;
         return $this;
     }
-    
+
     public function jsonSerialize(): array
     {
         return [

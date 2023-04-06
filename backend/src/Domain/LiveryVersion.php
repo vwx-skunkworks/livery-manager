@@ -27,13 +27,13 @@ class LiveryVersion implements LiveryVersionInterface, CreatedAtInterface, JsonS
     use CreatedAtTrait;
 
     public function __construct(
-        public readonly Tsid $uid,
-        public readonly ?Livery $livery,
-        public readonly string $version,
+        private readonly Tsid $uid,
+        private readonly ?Livery $livery,
+        private readonly string $version,
         public string $fileName,
         public string $changelog,
         public bool $enabled,
-        public readonly DateTimeInterface $createdAt
+        private readonly DateTimeInterface $createdAt
     ) {
     }
 
