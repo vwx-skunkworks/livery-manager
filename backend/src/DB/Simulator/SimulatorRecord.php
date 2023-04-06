@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace LiveryManager\DB\Simulator;
 
 use Atlas\Mapper\Record;
-use Atlas\Mapper\Related;
-use Atlas\Table\Row;
+use Odan\Tsid\Tsid;
 
 class SimulatorRecord extends Record
 {
     use SimulatorFields;
 
-    public function __construct(Row $row, Related $related)
+    public function jsonSerialize() : array
     {
-        /** @var SimulatorRow $row */
-        $row->id = (string) $row->id;
+        $arr = $this->getArrayCopy();
+        $arr['id'] = (new Tsid($arr['id']))->toString();
 
-        parent::__construct($row, $related);
+        return $arr;
     }
+
 }

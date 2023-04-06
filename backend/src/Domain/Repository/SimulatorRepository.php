@@ -35,10 +35,9 @@ class SimulatorRepository extends RepositoryCommon
     /**
      * @throws Exception
      */
-    public function fetch(int|string $id): Simulator
+    public function fetch(int|string $id): Record
     {
-        $record = $this->baseFetch(Mapper::class, $id);
-        return $this->fromRecord($record);
+        return $this->baseFetch(Mapper::class, $id);
     }
 
     /**
@@ -46,9 +45,7 @@ class SimulatorRepository extends RepositoryCommon
      */
     public function create(array $data): int|string
     {
-        return $this->baseCreate(
-            Mapper::class,
-            $this->filter($data, $this->fields)
+        return $this->baseCreate(Mapper::class, $this->filter($data, $this->fields)
         );
     }
 

@@ -26,6 +26,8 @@ use Psr\Http\Message\ServerRequestInterface;
 
 use function json_decode;
 
+use function strtoupper;
+
 use const JSON_THROW_ON_ERROR;
 
 abstract class ActionCommon
@@ -37,7 +39,7 @@ abstract class ActionCommon
     public function fetch(ResponseInterface $response, mixed $id): ResponseInterface
     {
         try {
-            $record = $this->repository->fetch($id);
+            $record = $this->repository->fetch(strtoupper($id));
         } catch (DomainException $e) {
             $response = $response->withStatus(StatusCodeInterface::STATUS_NOT_FOUND);
             $record = ['message' => $e->getMessage()];
@@ -76,7 +78,7 @@ abstract class ActionCommon
 
         $record = [];
         try {
-            $this->repository->update($id, $body);
+            $this->repository->update(strtoupper($id), $body);
             $response = $response->withStatus(StatusCodeInterface::STATUS_ACCEPTED);
         } catch (DomainException $e) {
             $response = $response->withStatus(StatusCodeInterface::STATUS_NOT_FOUND);
@@ -89,7 +91,7 @@ abstract class ActionCommon
     {
         $record = [];
         try {
-            $this->repository->delete($id);
+            $this->repository->delete(strtoupper($id));
             $response = $response->withStatus(StatusCodeInterface::STATUS_ACCEPTED);
         } catch (DomainException $e) {
             $response = $response->withStatus(StatusCodeInterface::STATUS_NOT_FOUND);

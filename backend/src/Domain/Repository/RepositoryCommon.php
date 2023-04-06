@@ -17,11 +17,13 @@ namespace LiveryManager\Domain\Repository;
 
 use Atlas\Mapper\Record;
 use Atlas\Orm\Atlas;
+use Dflydev\Base32\Crockford\Crockford;
 use DomainException;
 use LiveryManager\Exception\DbInsertException;
 use LiveryManager\Exception\DbUpdateException;
 use Odan\Tsid\Tsid;
 use Odan\Tsid\TsidFactory;
+use Psr\Log\LoggerInterface;
 use Throwable;
 
 use function array_filter;
@@ -35,7 +37,8 @@ abstract class RepositoryCommon
 
     public function __construct(
         protected readonly Atlas $db,
-        protected readonly TsidFactory $uid
+        protected readonly TsidFactory $uid,
+        protected readonly LoggerInterface $logger
     )
     {}
 
@@ -45,6 +48,12 @@ abstract class RepositoryCommon
     {
         return new Tsid($id);
     }
+
+    protected function uidConvert(string $uid): string
+    {
+        return (string) Crockford::decode($uid);
+    }
+
 
     protected function filter(array $data, array $fields): array
     {
@@ -68,10 +77,12 @@ abstract class RepositoryCommon
      * @param class-string $class
      * @throws DomainException
      */
-    protected function baseFetch(string $class, int|string $id): Record
+    protected function baseFetch(string $class, int|string $uid): Record
     {
+        $id = $this->uidConvert($uid);
+
         if (!$record = $this->db->fetchRecord($class, $id)) {
-            throw new DomainException('Invalid ID: ' . $id, 404);
+            throw new DomainException('Invalid ID: ' . $uid, 404);
         }
 
         return $record;
@@ -83,7 +94,7 @@ abstract class RepositoryCommon
      */
     protected function baseCreate(string $class, array $data): string|int
     {
-        $new     = $this->db->newRecord($class, $data);
+        $new  = $this->db->newRecord($class, $data);
         $tsid = $this->uid->generate();
         $new->id = $tsid->toInt();
 
@@ -100,9 +111,9 @@ abstract class RepositoryCommon
      * @param class-string $class
      * @throws DbUpdateException
      */
-    protected function baseUpdate(string $class, int|string $id, array $data): bool
+    protected function baseUpdate(string $class, int|string $uid, array $data): bool
     {
-        $record = $this->baseFetch($class, $id);
+        $record = $this->baseFetch($class, $uid);
 
         foreach($data as $k => $v)
         {
@@ -127,9 +138,9 @@ abstract class RepositoryCommon
     /**
      * @param class-string $class
      */
-    protected function baseDelete(string $class, int|string $id): bool
+    protected function baseDelete(string $class, int|string $uid): bool
     {
-        $record = $this->baseFetch($class, $id);
+        $record = $this->baseFetch($class, $uid);
 
         $this->db->delete($record);
 
