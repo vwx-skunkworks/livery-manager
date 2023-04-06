@@ -50,6 +50,7 @@
         "php": ">=8.1",
         "ext-json": "*",
         "ext-pdo": "*",
+        "ext-gmp": "*",
         "atlas/orm": "^3.1",
         "cakephp/chronos": "^2.3",
         "fig/http-message-util": "^1.1",
@@ -64,6 +65,7 @@
         "slim/flash": "^0.4.0",
         "slim/slim": "4.*",
         "slim/twig-view": "^3.3",
+        "symfony/uid": "^6.2",
         "vatradar/env": "^0.5.0",
         "vlucas/phpdotenv": "^5.5"
     },
