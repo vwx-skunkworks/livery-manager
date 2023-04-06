@@ -15,32 +15,31 @@ declare(strict_types=1);
 
 namespace LiveryManager\Domain\Repository;
 
-use DomainException;
+use Atlas\Mapper\Record;
+use DateTimeImmutable;
 use LiveryManager\DB\Developer\Developer as Mapper;
-use LiveryManager\DB\Developer\DeveloperRecord;
 use LiveryManager\Domain\Developer;
 
-class DeveloperRepository
+class DeveloperRepository extends RepositoryCommon
 {
-    public function __construct(private readonly Mapper $mapper) {}
+    public static array $fields = ['name'];
+    public static string $mapper = Mapper::class;
 
-    public function fetch(int $id): Developer
-    {
-        if(!$record = $this->mapper->fetchRecord($id, ['airframes']))
-        {
-            throw new DomainException('Invalid ID: ' .$id);
-        }
-
-        return static::new($record);
-    }
-
-    public static function new(DeveloperRecord $record): Developer
+    public function new(string $name): Developer
     {
         return new Developer(
-            $record->id,
+            $this->uid->generate(),
+            $name,
+            new DateTimeImmutable()
+        );
+    }
+
+    protected function fromRecord(Record $record): object
+    {
+        return new Developer(
+            $this->tsid($record->id),
             $record->name,
-            [], // TODO: fix this so it populates
-            $record->created_at
+            new DateTimeImmutable($record->created_at)
         );
     }
 }

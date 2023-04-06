@@ -13,7 +13,9 @@
 
 declare(strict_types=1);
 
+use LiveryManager\Action\DeveloperAction;
 use LiveryManager\Action\Home\HomeAction;
+use LiveryManager\Action\LiveryAction;
 use LiveryManager\Action\LiveryTypeAction;
 use LiveryManager\Action\LiveryVersionAction;
 use LiveryManager\Action\OperationAction;
@@ -27,6 +29,8 @@ return static function (App $app) {
     $app->group(
         '/api',
         function (RouteCollectorProxy $app) {
+            DeveloperAction::registerRoutes($app);
+            LiveryAction::registerRoutes($app);
             LiveryTypeAction::registerRoutes($app);
             LiveryVersionAction::registerRoutes($app);
             OperationAction::registerRoutes($app);

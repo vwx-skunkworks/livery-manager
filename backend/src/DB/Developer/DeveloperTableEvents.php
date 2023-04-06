@@ -25,6 +25,7 @@ class DeveloperTableEvents extends TableEvents
 {
     public function beforeInsertRow(Table $table, Row $row): ?array
     {
+        /** @var DeveloperRow $row */
         $row->created_at = date('Y-m-d H:i:s');
         return null;
     }

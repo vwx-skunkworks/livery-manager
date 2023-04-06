@@ -17,21 +17,20 @@ namespace LiveryManager\Domain;
 
 use DateTimeInterface;
 use JsonSerializable;
+use LiveryManager\Domain\Interface\CreatedAtInterface;
 use LiveryManager\Domain\Interface\DeveloperInterface;
+use Odan\Tsid\Tsid;
 
-class Developer implements DeveloperInterface, JsonSerializable
+class Developer implements DeveloperInterface, CreatedAtInterface, JsonSerializable
 {
-    public function __construct(
-        public readonly ?int $id,
-        public readonly string $name,
-        public readonly array $airframes,
-        public readonly DateTimeInterface $createdAt,
-    ) {
-    }
+    use IdentifierTrait;
+    use CreatedAtTrait;
 
-    public function getId(): ?int
-    {
-        return $this->id;
+    public function __construct(
+        private readonly Tsid $uid,
+        public string $name,
+        private readonly DateTimeInterface $createdAt,
+    ) {
     }
 
     public function getName(): string
@@ -39,18 +38,18 @@ class Developer implements DeveloperInterface, JsonSerializable
         return $this->name;
     }
 
-    public function getAirframes(): ?array
+    public function setName(string $name): self
     {
-        return $this->airframes;
-    }
-
-    public function getCreatedAt(): DateTimeInterface
-    {
-        return $this->createdAt;
+        $this->name = $name;
+        return $this;
     }
 
     public function jsonSerialize(): array
     {
-        return ['id' => $this->getId(), 'name' => $this->getName(), 'createdAt' => $this->getCreatedAt()];
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'createdAt' => $this->getCreatedAt()
+        ];
     }
 }
