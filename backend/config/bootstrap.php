@@ -24,6 +24,8 @@ Env::init(__DIR__ . '/../');
 try {
     $app = ContainerFactory::createInstance()->get(App::class);
     $app->run();
-} catch (Throwable) {
-    echo 'UNABLE TO INITIALIZE APPLICATION' . PHP_EOL;
+} catch (Throwable $e) {
+    echo 'CRITICAL://UNABLE TO INITIALIZE APPLICATION' . PHP_EOL;
+    $msg = '['.date('Y-m-d H:i:s').'] '.$e->getMessage().PHP_EOL;
+    file_put_contents(__DIR__.'/../logs/bootstrap_failure.log', $msg, FILE_APPEND);
 }
