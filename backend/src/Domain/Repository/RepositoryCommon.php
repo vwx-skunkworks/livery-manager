@@ -18,8 +18,17 @@ namespace LiveryManager\Domain\Repository;
 use Atlas\Mapper\Record;
 use Atlas\Orm\Atlas;
 use DomainException;
+use LiveryManager\Exception\DbInsertException;
+use LiveryManager\Exception\DbUpdateException;
 use Odan\Tsid\Tsid;
 use Odan\Tsid\TsidFactory;
+use Throwable;
+
+use function array_filter;
+use function in_array;
+use function strtolower;
+
+use const ARRAY_FILTER_USE_KEY;
 
 abstract class RepositoryCommon
 {
@@ -31,11 +40,20 @@ abstract class RepositoryCommon
     {}
 
     abstract protected function fromRecord(Record $record): object;
-    abstract protected function filter(array $data): array;
 
     protected function tsid(int $id): Tsid
     {
         return new Tsid($id);
+    }
+
+    protected function filter(array $data, array $fields): array
+    {
+        return array_filter($data, static function($key) use ($fields) {
+            if(!in_array($key, $fields, true)) {
+                return false;
+            }
+            return true;
+        }, ARRAY_FILTER_USE_KEY);
     }
 
     /**
@@ -43,22 +61,17 @@ abstract class RepositoryCommon
      */
     protected function baseFetchAll(string $class): array
     {
-        $records = $this->db->select($class)->fetchRecords();
-
-        $return = [];
-        foreach ($records as $record) {
-            $return[] = $this->fromRecord($record);
-        }
-        return $return;
+        return $this->db->select($class)->fetchRecords();
     }
 
     /**
      * @param class-string $class
+     * @throws DomainException
      */
-    protected function baseFetch(string $class, int $id): Record
+    protected function baseFetch(string $class, int|string $id): Record
     {
         if (!$record = $this->db->fetchRecord($class, $id)) {
-            throw new DomainException('Invalid ID: ' . $id);
+            throw new DomainException('Invalid ID: ' . $id, 404);
         }
 
         return $record;
@@ -66,29 +79,47 @@ abstract class RepositoryCommon
 
     /**
      * @param class-string $class
+     * @throws DbInsertException
      */
-    protected function baseCreate(string $class, array $data): int
+    protected function baseCreate(string $class, array $data): string|int
     {
-        $new = $this->db->newRecord($class, $data);
-        $new->id = $this->uid->generate();
-        $this->db->insert($new);
+        $new     = $this->db->newRecord($class, $data);
+        $tsid = $this->uid->generate();
+        $new->id = $tsid->toInt();
 
-        return (int) $new->id;
+        try {
+            $this->db->insert($new);
+        } catch (Throwable $e) {
+            throw new DbInsertException('Error Persisting Data', 500, $e);
+        }
+
+        return (string)$tsid->toInt();
     }
 
     /**
      * @param class-string $class
+     * @throws DbUpdateException
      */
-    protected function baseUpdate(string $class, int $id, array $data): bool
+    protected function baseUpdate(string $class, int|string $id, array $data): bool
     {
         $record = $this->baseFetch($class, $id);
 
         foreach($data as $k => $v)
         {
-            $record->{$k} = $v;
+            switch(strtolower($k)) {
+                case 'id':
+                case 'createdat':
+                    break;
+                default:
+                    $record->{$k} = $v;
+            }
         }
 
-        $this->db->update($record);
+        try {
+            $this->db->update($record);
+        } catch (Throwable $e) {
+            throw new DbUpdateException('Error Persisting Data', 500, $e);
+        }
 
         return true;
     }
@@ -96,7 +127,7 @@ abstract class RepositoryCommon
     /**
      * @param class-string $class
      */
-    protected function baseDelete(string $class, int $id): bool
+    protected function baseDelete(string $class, int|string $id): bool
     {
         $record = $this->baseFetch($class, $id);
 

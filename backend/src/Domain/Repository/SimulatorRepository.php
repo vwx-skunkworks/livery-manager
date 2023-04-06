@@ -20,8 +20,8 @@ use DateTimeImmutable;
 use Exception;
 use LiveryManager\DB\Simulator\Simulator as Mapper;
 use LiveryManager\Domain\Simulator;
-
-use function in_array;
+use LiveryManager\Exception\DbInsertException;
+use LiveryManager\Exception\DbUpdateException;
 
 class SimulatorRepository extends RepositoryCommon
 {
@@ -35,41 +35,36 @@ class SimulatorRepository extends RepositoryCommon
     /**
      * @throws Exception
      */
-    public function fetch(int $id): Simulator
+    public function fetch(int|string $id): Simulator
     {
         $record = $this->baseFetch(Mapper::class, $id);
         return $this->fromRecord($record);
     }
 
-    public function create(array $data): int
+    /**
+     * @throws DbInsertException
+     */
+    public function create(array $data): int|string
     {
         return $this->baseCreate(
             Mapper::class,
-            $this->filter($data)
+            $this->filter($data, $this->fields)
         );
     }
 
-    public function update(int $id, array $data): bool
+    /**
+     * @throws DbUpdateException
+     */
+    public function update(int|string $id, array $data): bool
     {
         return $this->baseUpdate(Mapper::class, $id, $data);
     }
 
-    public function delete(int $id): bool
+    public function delete(int|string $id): bool
     {
         return $this->baseDelete(Mapper::class, $id);
     }
 
-    protected function filter(array $data): array
-    {
-        $return = [];
-        foreach($data as $k => $v) {
-            if(in_array($k, $this->fields, true)) {
-                $return[$k] = $v;
-            }
-        }
-
-        return $return;
-    }
 
     public function new(string $name): Simulator
     {

@@ -21,9 +21,9 @@ use Psr\Http\Message\ServerRequestInterface;
 
 final class HomeAction
 {
-
     public function __construct(private JsonRenderer $renderer)
-    {}
+    {
+    }
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
