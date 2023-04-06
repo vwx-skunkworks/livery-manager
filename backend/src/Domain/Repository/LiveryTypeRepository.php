@@ -15,32 +15,38 @@ declare(strict_types=1);
 
 namespace LiveryManager\Domain\Repository;
 
-use DomainException;
+use Atlas\Mapper\Record;
+use DateTimeImmutable;
+use Exception;
 use LiveryManager\DB\LiveryType\LiveryType as Mapper;
-use LiveryManager\DB\LiveryType\LiveryTypeRecord;
 use LiveryManager\Domain\LiveryType;
 
-class LiveryTypeRepository
+class LiveryTypeRepository extends RepositoryCommon
 {
-    public function __construct(private readonly Mapper $mapper) {}
+    protected static array $fields = ['name', 'description'];
+    protected static string $mapper = Mapper::class;
 
-    public function fetch(int $id): LiveryType
-    {
-        if(!$record = $this->mapper->fetchRecord($id))
-        {
-            throw new DomainException('Invalid ID: ' .$id);
-        }
 
-        return static::new($record);
-    }
-
-    public static function new(LiveryTypeRecord $record): LiveryType
+    public function new(string $name, string $description): LiveryType
     {
         return new LiveryType(
-            $record->id,
+            $this->uid->generate(),
+            $name,
+            $description,
+            new DateTimeImmutable()
+        );
+    }
+
+    /**
+     * @throws Exception
+     */
+    protected function fromRecord(Record $record): object
+    {
+        return new LiveryType(
+            $this->tsid($record->id),
             $record->name,
             $record->description,
-            $record->created_at
+            new DateTimeImmutable($record->created_at)
         );
     }
 }

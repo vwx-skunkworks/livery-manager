@@ -25,6 +25,7 @@ class LiveryTypeTableEvents extends TableEvents
 {
     public function beforeInsertRow(Table $table, Row $row): ?array
     {
+        /** @var LiveryTypeRow $row */
         $row->created_at = date('Y-m-d H:i:s');
         return null;
     }

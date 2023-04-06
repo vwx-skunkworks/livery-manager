@@ -9,7 +9,7 @@ namespace LiveryManager\DB\LiveryType;
 use Atlas\Table\Row;
 
 /**
- * @property mixed $id int(10,0) unsigned NOT NULL
+ * @property mixed $id bigint(20,0) unsigned NOT NULL
  * @property mixed $name varchar(50) NOT NULL
  * @property mixed $description mediumtext(16777215)
  * @property mixed $created_at datetime NOT NULL

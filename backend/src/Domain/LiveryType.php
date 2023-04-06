@@ -17,22 +17,22 @@ namespace LiveryManager\Domain;
 
 use DateTimeInterface;
 use JsonSerializable;
+use LiveryManager\Domain\Interface\CreatedAtInterface;
 use LiveryManager\Domain\Interface\LiveryTypeInterface;
+use Odan\Tsid\Tsid;
 
 // TODO: add liveries array
-class LiveryType implements LiveryTypeInterface, JsonSerializable
+class LiveryType implements LiveryTypeInterface, CreatedAtInterface, JsonSerializable
 {
+    use IdentifierTrait;
+    use CreatedAtTrait;
+
     public function __construct(
-        public readonly ?int $id,
-        public readonly string $name,
-        public readonly string $description,
-        public readonly DateTimeInterface $createdAt,
+        private readonly Tsid $uid,
+        public string $name,
+        public string $description,
+        private readonly DateTimeInterface $createdAt,
     ) {
-    }
-    
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     public function getName(): string
@@ -40,18 +40,30 @@ class LiveryType implements LiveryTypeInterface, JsonSerializable
         return $this->name;
     }
 
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+        return $this;
+    }
+
     public function getDescription(): string
     {
         return $this->description;
     }
 
-    public function getCreatedAt(): DateTimeInterface
+    public function setDescription(string $description): self
     {
-        return $this->createdAt;
+        $this->description = $description;
+        return $this;
     }
 
     public function jsonSerialize(): array
     {
-        return ['id' => $this->getId(), 'name' => $this->getName(), 'description' => $this->getDescription(), 'createdAt' => $this->getCreatedAt()];
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'description' => $this->getDescription(),
+            'createdAt' => $this->getCreatedAt()
+        ];
     }
 }
