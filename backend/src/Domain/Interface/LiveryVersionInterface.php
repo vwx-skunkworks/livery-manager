@@ -15,16 +15,16 @@ declare(strict_types=1);
 
 namespace LiveryManager\Domain\Interface;
 
-use DateTimeInterface;
 use LiveryManager\Domain\Livery;
 
-interface LiveryVersionInterface
+interface LiveryVersionInterface extends IdentifierInterface
 {
-    public function getId(): ?int;
     public function getLivery(): ?Livery;
-    public function getVersion(): int;
+    public function getVersion(): string;
     public function getChangelog(): string;
+    public function setChangelog(string $text): self;
     public function getFileName(): string;
+    public function setFileName(string $name): self;
     public function getEnabled(): bool;
-    public function getCreatedAt(): DateTimeInterface;
+    public function setEnabled(bool $enabled): self;
 }

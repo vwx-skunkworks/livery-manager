@@ -14,36 +14,47 @@
 declare(strict_types=1);
 
 namespace LiveryManager\Domain\Repository;
-use DomainException;
+
+use Atlas\Mapper\Record;
+use DateTimeImmutable;
+use Exception;
 use LiveryManager\DB\LiveryVersion\LiveryVersion as Mapper;
-use LiveryManager\DB\LiveryVersion\LiveryVersionRecord;
+use LiveryManager\Domain\Livery;
 use LiveryManager\Domain\LiveryVersion;
 
-class LiveryVersionRepository
+class LiveryVersionRepository extends RepositoryCommon
 {
+    protected static array $fields = ['changelog', 'fileName', 'enabled'];
+    protected static string $mapper = Mapper::class;
 
-    public function __construct(private readonly Mapper $mapper) {}
-
-    public function fetch(int $id): LiveryVersion
-    {
-        if(!$record = $this->mapper->fetchRecord($id, ['livery']))
-        {
-            throw new DomainException('Invalid ID: ' .$id);
-        }
-
-        return static::new($record);
-    }
-
-    public static function new(LiveryVersionRecord $record): LiveryVersion
+    public function new(
+        ?Livery $livery, string $version, string $fileName, string $changelog = ''
+    ): LiveryVersion
     {
         return new LiveryVersion(
-            $record->id,
-            ($record->livery) ? LiveryRepository::new($record->livery) : null,
+            $this->uid->generate(),
+            $livery,
+            $version,
+            $fileName,
+            $changelog,
+            true,
+            new DateTimeImmutable()
+        );
+    }
+
+    /**
+     * @throws Exception
+     */
+    protected function fromRecord(Record $record): LiveryVersion
+    {
+        return new LiveryVersion(
+            $this->tsid($record->id),
+            $record->livery,
             $record->version,
-            $record->changelog,
             $record->file_name,
-            $record->enabled,
-            $record->created_at
+            $record->changelog,
+            (bool) $record->enabled,
+            new DateTimeImmutable($record->created_at)
         );
     }
 }

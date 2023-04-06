@@ -17,24 +17,24 @@ namespace LiveryManager\Domain;
 
 use DateTimeInterface;
 use JsonSerializable;
+use LiveryManager\Domain\Interface\CreatedAtInterface;
 use LiveryManager\Domain\Interface\LiveryVersionInterface;
+use Odan\Tsid\Tsid;
 
-class LiveryVersion implements LiveryVersionInterface, JsonSerializable
+class LiveryVersion implements LiveryVersionInterface, CreatedAtInterface, JsonSerializable
 {
+    use IdentifierTrait;
+    use CreatedAtTrait;
+
     public function __construct(
-        public readonly ?int $id,
+        public readonly Tsid $uid,
         public readonly ?Livery $livery,
-        public readonly int $version,
-        public readonly string $changelog,
-        public readonly string $fileName,
-        public readonly bool $enabled,
+        public readonly string $version,
+        public string $fileName,
+        public string $changelog,
+        public bool $enabled,
         public readonly DateTimeInterface $createdAt
     ) {
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     public function getLivery(): ?Livery
@@ -42,7 +42,7 @@ class LiveryVersion implements LiveryVersionInterface, JsonSerializable
         return $this->livery;
     }
 
-    public function getVersion(): int
+    public function getVersion(): string
     {
         return $this->version;
     }
@@ -52,19 +52,32 @@ class LiveryVersion implements LiveryVersionInterface, JsonSerializable
         return $this->fileName;
     }
 
+    public function setFileName(string $name): LiveryVersionInterface
+    {
+        $this->fileName = $name;
+        return $this;
+    }
+
     public function getChangelog(): string
     {
         return $this->changelog;
     }
-    
+
+    public function setChangelog(string $text): LiveryVersionInterface
+    {
+        $this->changelog = $text;
+        return $this;
+    }
+
     public function getEnabled(): bool
     {
         return $this->enabled;
     }
 
-    public function getCreatedAt(): DateTimeInterface
+    public function setEnabled(bool $enabled): LiveryVersionInterface
     {
-        return $this->createdAt;
+        $this->enabled = $enabled;
+        return $this;
     }
 
     public function jsonSerialize(): array

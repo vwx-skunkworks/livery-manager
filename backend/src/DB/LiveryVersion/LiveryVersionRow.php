@@ -9,9 +9,9 @@ namespace LiveryManager\DB\LiveryVersion;
 use Atlas\Table\Row;
 
 /**
- * @property mixed $id int(10,0) unsigned NOT NULL
- * @property mixed $livery_id int(10,0) unsigned NOT NULL
- * @property mixed $version int(10,0) unsigned NOT NULL
+ * @property mixed $id bigint(20,0) unsigned NOT NULL
+ * @property mixed $livery_id bigint(20,0) unsigned NOT NULL
+ * @property mixed $version varchar(16) NOT NULL
  * @property mixed $changelog mediumtext(16777215)
  * @property mixed $file_name varchar(100) NOT NULL
  * @property mixed $enabled tinyint(3,0) unsigned NOT NULL

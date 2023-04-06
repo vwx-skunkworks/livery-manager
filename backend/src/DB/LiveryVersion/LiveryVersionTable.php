@@ -17,67 +17,67 @@ use Atlas\Table\Table;
  */
 class LiveryVersionTable extends Table
 {
-    public const DRIVER = 'mysql';
+    const DRIVER = 'mysql';
 
-    public const NAME = 'livery_version';
+    const NAME = 'livery_version';
 
-    public const COLUMNS = [
-        'id' => array(
+    const COLUMNS = [
+        'id' => array (
   'name' => 'id',
-  'type' => 'int unsigned',
-  'size' => 10,
+  'type' => 'bigint unsigned',
+  'size' => 20,
   'scale' => 0,
   'notnull' => true,
-  'default' => null,
-  'autoinc' => true,
+  'default' => NULL,
+  'autoinc' => false,
   'primary' => true,
-  'options' => null,
+  'options' => NULL,
 ),
-        'livery_id' => array(
+        'livery_id' => array (
   'name' => 'livery_id',
-  'type' => 'int unsigned',
-  'size' => 10,
+  'type' => 'bigint unsigned',
+  'size' => 20,
   'scale' => 0,
   'notnull' => true,
-  'default' => null,
+  'default' => NULL,
   'autoinc' => false,
   'primary' => false,
-  'options' => null,
+  'options' => NULL,
 ),
-        'version' => array(
+        'version' => array (
   'name' => 'version',
-  'type' => 'int unsigned',
-  'size' => 10,
-  'scale' => 0,
+  'type' => 'varchar',
+  'size' => 16,
+  'scale' => NULL,
   'notnull' => true,
-  'default' => null,
+  'default' => NULL,
   'autoinc' => false,
   'primary' => false,
-  'options' => null,
+  'options' => NULL,
 ),
-        'changelog' => array(
+        'changelog' => array (
   'name' => 'changelog',
   'type' => 'mediumtext',
   'size' => 16777215,
-  'scale' => null,
+  'scale' => NULL,
   'notnull' => false,
   'default' => 'NULL',
   'autoinc' => false,
   'primary' => false,
-  'options' => null,
+  'options' => NULL,
 ),
-        'file_name' => array(
+        'file_name' => array (
   'name' => 'file_name',
   'type' => 'varchar',
   'size' => 100,
-  'scale' => null,
+  'scale' => NULL,
   'notnull' => true,
   'default' => '\'\'',
   'autoinc' => false,
   'primary' => false,
-  'options' => null,
+  'options' => NULL,
 ),
-        'enabled' => array(
+        'enabled' => array (
   'name' => 'enabled',
   'type' => 'tinyint unsigned',
   'size' => 3,
@@ -86,22 +86,22 @@ class LiveryVersionTable extends Table
   'default' => 1,
   'autoinc' => false,
   'primary' => false,
-  'options' => null,
+  'options' => NULL,
 ),
-        'created_at' => array(
+        'created_at' => array (
   'name' => 'created_at',
   'type' => 'datetime',
-  'size' => null,
-  'scale' => null,
+  'size' => NULL,
+  'scale' => NULL,
   'notnull' => true,
   'default' => 'current_timestamp()',
   'autoinc' => false,
   'primary' => false,
-  'options' => null,
+  'options' => NULL,
 ),
     ];
 
-    public const COLUMN_NAMES = [
+    const COLUMN_NAMES = [
         'id',
         'livery_id',
         'version',
@@ -111,7 +111,7 @@ class LiveryVersionTable extends Table
         'created_at',
     ];
 
-    public const COLUMN_DEFAULTS = [
+    const COLUMN_DEFAULTS = [
         'id' => null,
         'livery_id' => null,
         'version' => null,
@@ -121,11 +121,11 @@ class LiveryVersionTable extends Table
         'created_at' => 'current_timestamp()',
     ];
 
-    public const PRIMARY_KEY = [
+    const PRIMARY_KEY = [
         'id',
     ];
 
-    public const AUTOINC_COLUMN = 'id';
+    const AUTOINC_COLUMN = null;
 
-    public const AUTOINC_SEQUENCE = null;
+    const AUTOINC_SEQUENCE = null;
 }
