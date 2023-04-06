@@ -15,37 +15,42 @@ declare(strict_types=1);
 
 namespace LiveryManager\Domain\Repository;
 
-use DomainException;
+use DateTimeImmutable;
 use LiveryManager\DB\Airframe\Airframe as Mapper;
-use LiveryManager\DB\Airframe\AirframeRecord;
 use LiveryManager\Domain\Airframe;
 
-class AirframeRepository
+class AirframeRepository extends RepositoryCommon
 {
-    public function __construct(private readonly Mapper $mapper) {}
+    protected static array $fields = ['name', 'icao', 'description', 'enabled'];
+    protected static string $mapper = Mapper::class;
 
-    public function fetch(int $id): Airframe
-    {
-        if(!$record = $this->mapper->fetchRecord($id, ['operation', 'developer', 'simulator']))
-        {
-            throw new DomainException('Invalid ID: ' .$id);
-        }
-
-        return static::new($record);
-    }
-
-    public static function new(AirframeRecord $record): Airframe
+    public function new(string $name, string $icao, string $description): Airframe
     {
         return new Airframe(
-            $record->id,
-            ($record->operation) ? OperationRepository::new($record->operation) : null,
-            ($record->developer) ? DeveloperRepository::new($record->developer) : null,
-            ($record->simulator) ? SimulatorRepository::new($record->simulator) : null,
+            $this->uid->generate(),
+            null,
+            null,
+            null,
+            $name,
+            $icao,
+            $description,
+            true,
+            new DateTimeImmutable()
+        );
+    }
+
+    protected function fromRecord(Record $record): Airframe
+    {
+        return new Airframe(
+            $this->tsid($record->id),
+            $record->operation,
+            $record->developer,
+            $record->simulator,
             $record->name,
             $record->icao,
             $record->description,
-            $record->enabled,
-            $record->created_at
+            (bool) $record->enabled,
+            new DateTimeImmutable($record->created_at)
         );
     }
 }

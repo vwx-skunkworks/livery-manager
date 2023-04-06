@@ -15,20 +15,21 @@ declare(strict_types=1);
 
 namespace LiveryManager\Domain\Interface;
 
-use DateTimeInterface;
 use LiveryManager\Domain\Developer;
 use LiveryManager\Domain\Operation;
 use LiveryManager\Domain\Simulator;
 
-interface AirframeInterface
+interface AirframeInterface extends IdentifierInterface
 {
-    public function getId(): ?int;
     public function getOperation(): ?Operation;
     public function getDeveloper(): ?Developer;
     public function getSimulator(): ?Simulator;
     public function getName(): string;
+    public function setName(string $name): self;
     public function getIcao(): string;
+    public function setIcao(string $icao): self;
     public function getDescription(): ?string;
+    public function setDescription(string $description): self;
     public function getEnabled(): bool;
-    public function getCreatedAt(): DateTimeInterface;
+    public function setEnabled(bool $enabled): self;
 }

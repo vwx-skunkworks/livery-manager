@@ -16,6 +16,7 @@ declare(strict_types=1);
 namespace LiveryManager\DB\Airframe;
 
 use Atlas\Mapper\Record;
+use Odan\Tsid\Tsid;
 
 /**
  * @method AirframeRow getRow()
@@ -23,4 +24,12 @@ use Atlas\Mapper\Record;
 class AirframeRecord extends Record
 {
     use AirframeFields;
+
+    public function jsonSerialize() : array
+    {
+        $arr = $this->getArrayCopy();
+        $arr['id'] = (new Tsid($arr['id']))->toString();
+
+        return $arr;
+    }
 }

@@ -7,10 +7,10 @@ declare(strict_types=1);
 namespace LiveryManager\DB\Airframe;
 
 /**
- * @property mixed $id int(10,0) unsigned NOT NULL
- * @property mixed $operation_id int(10,0) unsigned NOT NULL
- * @property mixed $developer_id int(10,0) unsigned NOT NULL
- * @property mixed $simulator_id int(10,0) unsigned NOT NULL
+ * @property mixed $id bigint(20,0) unsigned NOT NULL
+ * @property mixed $operation_id bigint(20,0) unsigned NOT NULL
+ * @property mixed $developer_id bigint(20,0) unsigned NOT NULL
+ * @property mixed $simulator_id bigint(20,0) unsigned NOT NULL
  * @property mixed $name varchar(75) NOT NULL
  * @property mixed $icao varchar(6)
  * @property mixed $description mediumtext(16777215)

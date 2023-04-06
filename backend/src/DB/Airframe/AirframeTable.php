@@ -17,89 +17,89 @@ use Atlas\Table\Table;
  */
 class AirframeTable extends Table
 {
-    public const DRIVER = 'mysql';
+    const DRIVER = 'mysql';
 
-    public const NAME = 'airframe';
+    const NAME = 'airframe';
 
-    public const COLUMNS = [
-        'id' => array(
+    const COLUMNS = [
+        'id' => array (
   'name' => 'id',
-  'type' => 'int unsigned',
-  'size' => 10,
+  'type' => 'bigint unsigned',
+  'size' => 20,
   'scale' => 0,
   'notnull' => true,
-  'default' => null,
-  'autoinc' => true,
+  'default' => NULL,
+  'autoinc' => false,
   'primary' => true,
-  'options' => null,
+  'options' => NULL,
 ),
-        'operation_id' => array(
+        'operation_id' => array (
   'name' => 'operation_id',
-  'type' => 'int unsigned',
-  'size' => 10,
+  'type' => 'bigint unsigned',
+  'size' => 20,
   'scale' => 0,
   'notnull' => true,
-  'default' => null,
+  'default' => NULL,
   'autoinc' => false,
   'primary' => false,
-  'options' => null,
+  'options' => NULL,
 ),
-        'developer_id' => array(
+        'developer_id' => array (
   'name' => 'developer_id',
-  'type' => 'int unsigned',
-  'size' => 10,
+  'type' => 'bigint unsigned',
+  'size' => 20,
   'scale' => 0,
   'notnull' => true,
-  'default' => null,
+  'default' => NULL,
   'autoinc' => false,
   'primary' => false,
-  'options' => null,
+  'options' => NULL,
 ),
-        'simulator_id' => array(
+        'simulator_id' => array (
   'name' => 'simulator_id',
-  'type' => 'int unsigned',
-  'size' => 10,
+  'type' => 'bigint unsigned',
+  'size' => 20,
   'scale' => 0,
   'notnull' => true,
-  'default' => null,
+  'default' => NULL,
   'autoinc' => false,
   'primary' => false,
-  'options' => null,
+  'options' => NULL,
 ),
-        'name' => array(
+        'name' => array (
   'name' => 'name',
   'type' => 'varchar',
   'size' => 75,
-  'scale' => null,
+  'scale' => NULL,
   'notnull' => true,
   'default' => '\'\'',
   'autoinc' => false,
   'primary' => false,
-  'options' => null,
+  'options' => NULL,
 ),
-        'icao' => array(
+        'icao' => array (
   'name' => 'icao',
   'type' => 'varchar',
   'size' => 6,
-  'scale' => null,
+  'scale' => NULL,
   'notnull' => false,
   'default' => 'NULL',
   'autoinc' => false,
   'primary' => false,
-  'options' => null,
+  'options' => NULL,
 ),
-        'description' => array(
+        'description' => array (
   'name' => 'description',
   'type' => 'mediumtext',
   'size' => 16777215,
-  'scale' => null,
+  'scale' => NULL,
   'notnull' => false,
   'default' => 'NULL',
   'autoinc' => false,
   'primary' => false,
-  'options' => null,
+  'options' => NULL,
 ),
-        'enabled' => array(
+        'enabled' => array (
   'name' => 'enabled',
   'type' => 'tinyint unsigned',
   'size' => 3,
@@ -108,22 +108,22 @@ class AirframeTable extends Table
   'default' => 1,
   'autoinc' => false,
   'primary' => false,
-  'options' => null,
+  'options' => NULL,
 ),
-        'created_at' => array(
+        'created_at' => array (
   'name' => 'created_at',
   'type' => 'datetime',
-  'size' => null,
-  'scale' => null,
+  'size' => NULL,
+  'scale' => NULL,
   'notnull' => true,
   'default' => 'current_timestamp()',
   'autoinc' => false,
   'primary' => false,
-  'options' => null,
+  'options' => NULL,
 ),
     ];
 
-    public const COLUMN_NAMES = [
+    const COLUMN_NAMES = [
         'id',
         'operation_id',
         'developer_id',
@@ -135,7 +135,7 @@ class AirframeTable extends Table
         'created_at',
     ];
 
-    public const COLUMN_DEFAULTS = [
+    const COLUMN_DEFAULTS = [
         'id' => null,
         'operation_id' => null,
         'developer_id' => null,
@@ -147,11 +147,11 @@ class AirframeTable extends Table
         'created_at' => 'current_timestamp()',
     ];
 
-    public const PRIMARY_KEY = [
+    const PRIMARY_KEY = [
         'id',
     ];
 
-    public const AUTOINC_COLUMN = 'id';
+    const AUTOINC_COLUMN = null;
 
-    public const AUTOINC_SEQUENCE = null;
+    const AUTOINC_SEQUENCE = null;
 }
