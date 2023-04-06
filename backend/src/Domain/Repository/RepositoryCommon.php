@@ -104,7 +104,7 @@ abstract class RepositoryCommon
             throw new DbInsertException('Error Persisting Data', 500, $e);
         }
 
-        return (string)$tsid->toInt();
+        return $tsid->toString();
     }
 
     /**

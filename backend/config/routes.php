@@ -14,6 +14,7 @@
 declare(strict_types=1);
 
 use LiveryManager\Action\Home\HomeAction;
+use LiveryManager\Action\OperationAction;
 use LiveryManager\Action\SimulatorAction;
 use Slim\App;
 use Slim\Routing\RouteCollectorProxy;
@@ -25,6 +26,7 @@ return static function (App $app) {
         '/api',
         function (RouteCollectorProxy $app) {
             SimulatorAction::registerRoutes($app);
+            OperationAction::registerRoutes($app);
         }
     );
 

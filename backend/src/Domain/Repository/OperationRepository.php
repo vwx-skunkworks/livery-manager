@@ -15,31 +15,67 @@ declare(strict_types=1);
 
 namespace LiveryManager\Domain\Repository;
 
-use DomainException;
+use Atlas\Mapper\Record;
+use DateTimeImmutable;
+use Exception;
 use LiveryManager\DB\Operation\Operation as Mapper;
-use LiveryManager\DB\Operation\OperationRecord;
 use LiveryManager\Domain\Operation;
+use LiveryManager\Exception\DbInsertException;
+use LiveryManager\Exception\DbUpdateException;
 
-class OperationRepository
+class OperationRepository extends RepositoryCommon
 {
-    public function __construct(private readonly Mapper $mapper) {}
+    protected array $fields = ['name'];
 
-    public function fetch(int $id): Operation
+    public function fetchAll(): array
     {
-       if(!$record = $this->mapper->fetchRecord($id))
-       {
-           throw new DomainException('Invalid ID: ' .$id);
-       }
-
-        return static::new($record);
+        return $this->baseFetchAll(Mapper::class);
     }
 
-    public static function new(OperationRecord $record): Operation
+    /**
+     * @throws Exception
+     */
+    public function fetch(int|string $id): Record
+    {
+        return $this->baseFetch(Mapper::class, $id);
+    }
+
+    /**
+     * @throws DbInsertException
+     */
+    public function create(array $data): int|string
+    {
+        return $this->baseCreate(Mapper::class, $this->filter($data, $this->fields)
+        );
+    }
+
+    /**
+     * @throws DbUpdateException
+     */
+    public function update(int|string $id, array $data): bool
+    {
+        return $this->baseUpdate(Mapper::class, $id, $data);
+    }
+
+    public function delete(int|string $id): bool
+    {
+        return $this->baseDelete(Mapper::class, $id);
+    }
+
+    public function new(string $name): Operation
+    {
+        return new Operation($this->uid->generate(), $name, new DateTimeImmutable());
+    }
+
+    /**
+     * @throws Exception
+     */
+    protected function fromRecord(Record $record): Operation
     {
         return new Operation(
-            $record->id,
+            $this->tsid($record->id),
             $record->name,
-            $record->created_at
+            new DateTimeImmutable($record->created_at)
         );
     }
 

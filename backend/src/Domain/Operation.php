@@ -18,25 +18,37 @@ namespace LiveryManager\Domain;
 use DateTimeInterface;
 use JsonSerializable;
 use LiveryManager\Domain\Interface\OperationInterface;
+use Odan\Tsid\Tsid;
 
 // TODO: add airframes array
 class Operation implements OperationInterface, JsonSerializable
 {
     public function __construct(
-        public readonly ?int $id,
-        public readonly string $name,
+        public readonly Tsid $uid,
+        public string $name,
         public readonly DateTimeInterface $createdAt,
     ) {
     }
 
-    public function getId(): ?int
+    public function getId(): int
     {
-        return $this->id;
+        return $this->uid->toInt();
+    }
+
+    public function getUid(): string
+    {
+        return $this->uid->toString();
     }
 
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+        return $this;
     }
 
     public function getCreatedAt(): DateTimeInterface
@@ -46,6 +58,10 @@ class Operation implements OperationInterface, JsonSerializable
 
     public function jsonSerialize(): array
     {
-        return ['id' => $this->getId(), 'name' => $this->getName(), 'createdAt' => $this->getCreatedAt()];
+        return [
+            'id' => $this->getUid(),
+            'name' => $this->getName(),
+            'createdAt' => $this->getCreatedAt()
+        ];
     }
 }

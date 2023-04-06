@@ -15,22 +15,21 @@ declare(strict_types=1);
 
 namespace LiveryManager\Action;
 
-use LiveryManager\Domain\Repository\SimulatorRepository;
+use LiveryManager\Domain\Repository\OperationRepository;
 use LiveryManager\Renderer\JsonRenderer;
 use Slim\Routing\RouteCollectorProxy;
 
-class SimulatorAction extends ActionCommon
+class OperationAction extends ActionCommon
 {
     public function __construct(
-        protected readonly SimulatorRepository $repository,
+        protected readonly OperationRepository $repository,
         protected readonly JsonRenderer $renderer
-    ) {
-    }
+    ) {}
 
     public static function registerRoutes(RouteCollectorProxy $app): void
     {
         $app->group(
-            '/simulator',
+            '/operation',
             function(RouteCollectorProxy $app) {
                 $app->get('/{id}', [__CLASS__, 'fetch']);
                 $app->put('/{id}', [__CLASS__, 'update']);

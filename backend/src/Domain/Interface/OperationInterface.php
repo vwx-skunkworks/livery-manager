@@ -15,11 +15,8 @@ declare(strict_types=1);
 
 namespace LiveryManager\Domain\Interface;
 
-use DateTimeInterface;
-
-interface OperationInterface
+interface OperationInterface extends IdentifierInterface
 {
-    public function getId(): ?int;
     public function getName(): string;
-    public function getCreatedAt(): DateTimeInterface;
+    public function setName(string $name): self;
 }
