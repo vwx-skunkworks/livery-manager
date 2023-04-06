@@ -17,6 +17,6 @@ namespace LiveryManager\Domain\Interface;
 
 interface IdentifierInterface
 {
-    public function getId(): int;
-    public function getUid(): string;
+    public function getId(): string;
+    public function getUid(): int;
 }
