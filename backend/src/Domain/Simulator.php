@@ -60,8 +60,7 @@ class Simulator implements SimulatorInterface, CreatedAtInterface, JsonSerializa
     public function jsonSerialize(): array
     {
         return [
-            'id' => $this->getId(),
-            'uid' => $this->getUid(),
+            'id' => $this->getUid(),
             'name' => $this->getName(),
             'createdAt' => $this->getCreatedAt()
         ];
