@@ -20,47 +20,12 @@ use DateTimeImmutable;
 use Exception;
 use LiveryManager\DB\Operation\Operation as Mapper;
 use LiveryManager\Domain\Operation;
-use LiveryManager\Exception\DbInsertException;
-use LiveryManager\Exception\DbUpdateException;
 
 class OperationRepository extends RepositoryCommon
 {
-    protected array $fields = ['name'];
+    protected static array $fields = ['name'];
+    protected static string $mapper = Mapper::class;
 
-    public function fetchAll(): array
-    {
-        return $this->baseFetchAll(Mapper::class);
-    }
-
-    /**
-     * @throws Exception
-     */
-    public function fetch(int|string $id): Record
-    {
-        return $this->baseFetch(Mapper::class, $id);
-    }
-
-    /**
-     * @throws DbInsertException
-     */
-    public function create(array $data): int|string
-    {
-        return $this->baseCreate(Mapper::class, $this->filter($data, $this->fields)
-        );
-    }
-
-    /**
-     * @throws DbUpdateException
-     */
-    public function update(int|string $id, array $data): bool
-    {
-        return $this->baseUpdate(Mapper::class, $id, $data);
-    }
-
-    public function delete(int|string $id): bool
-    {
-        return $this->baseDelete(Mapper::class, $id);
-    }
 
     public function new(string $name): Operation
     {

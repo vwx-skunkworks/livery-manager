@@ -19,6 +19,7 @@ use Atlas\Mapper\Record;
 use Atlas\Orm\Atlas;
 use Dflydev\Base32\Crockford\Crockford;
 use DomainException;
+use Exception;
 use LiveryManager\Exception\DbInsertException;
 use LiveryManager\Exception\DbUpdateException;
 use Odan\Tsid\Tsid;
@@ -32,6 +33,10 @@ use function strtolower;
 
 use const ARRAY_FILTER_USE_KEY;
 
+/**
+ * @property string $mapper
+ * @property array $fields
+ */
 abstract class RepositoryCommon
 {
 
@@ -41,6 +46,40 @@ abstract class RepositoryCommon
         protected readonly LoggerInterface $logger
     )
     {}
+
+    public function delete(int|string $id): bool
+    {
+        return $this->baseDelete(self::$mapper, $id);
+    }
+
+    /**
+     * @throws DbInsertException
+     */
+    public function create(array $data): int|string
+    {
+        return $this->baseCreate(self::$mapper, $this->filter($data, self::$fields));
+    }
+
+    /**
+     * @throws DbUpdateException
+     */
+    public function update(int|string $id, array $data): bool
+    {
+        return $this->baseUpdate(self::$mapper, $id, $this->filter($data, self::$fields));
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function fetch(int|string $id): Record
+    {
+        return $this->baseFetch(self::$mapper, $id);
+    }
+
+    public function fetchAll(): array
+    {
+        return $this->baseFetchAll(self::$mapper);
+    }
 
     abstract protected function fromRecord(Record $record): object;
 
@@ -54,6 +93,10 @@ abstract class RepositoryCommon
         return (string) Crockford::decode($uid);
     }
 
+    protected function camelToSnake(string $identifier): string
+    {
+        return strtolower(preg_replace('/(?<!--^)[A-Z]/', '_$0', $identifier));
+    }
 
     protected function filter(array $data, array $fields): array
     {
@@ -117,12 +160,13 @@ abstract class RepositoryCommon
 
         foreach($data as $k => $v)
         {
-            switch(strtolower($k)) {
+            $newKey = $this->camelToSnake($k);
+            switch($newKey) {
                 case 'id':
-                case 'createdat':
+                case 'created_at':
                     break;
                 default:
-                    $record->{$k} = $v;
+                    $record->{$newKey} = $v;
             }
         }
 

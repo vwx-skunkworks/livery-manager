@@ -17,11 +17,12 @@ namespace LiveryManager\Domain;
 
 use DateTimeInterface;
 use JsonSerializable;
+use LiveryManager\Domain\Interface\CreatedAtInterface;
 use LiveryManager\Domain\Interface\OperationInterface;
 use Odan\Tsid\Tsid;
 
 // TODO: add airframes array
-class Operation implements OperationInterface, JsonSerializable
+class Operation implements OperationInterface, CreatedAtInterface, JsonSerializable
 {
     public function __construct(
         public readonly Tsid $uid,
