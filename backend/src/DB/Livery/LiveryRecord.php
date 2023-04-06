@@ -16,6 +16,7 @@ declare(strict_types=1);
 namespace LiveryManager\DB\Livery;
 
 use Atlas\Mapper\Record;
+use Odan\Tsid\Tsid;
 
 /**
  * @method LiveryRow getRow()
@@ -23,4 +24,12 @@ use Atlas\Mapper\Record;
 class LiveryRecord extends Record
 {
     use LiveryFields;
+
+    public function jsonSerialize() : array
+    {
+        $arr = $this->getArrayCopy();
+        $arr['id'] = (new Tsid($arr['id']))->toString();
+
+        return $arr;
+    }
 }

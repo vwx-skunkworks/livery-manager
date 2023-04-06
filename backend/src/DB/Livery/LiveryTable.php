@@ -17,89 +17,89 @@ use Atlas\Table\Table;
  */
 class LiveryTable extends Table
 {
-    public const DRIVER = 'mysql';
+    const DRIVER = 'mysql';
 
-    public const NAME = 'livery';
+    const NAME = 'livery';
 
-    public const COLUMNS = [
-        'id' => array(
+    const COLUMNS = [
+        'id' => array (
   'name' => 'id',
-  'type' => 'int unsigned',
-  'size' => 10,
+  'type' => 'bigint unsigned',
+  'size' => 20,
   'scale' => 0,
   'notnull' => true,
-  'default' => null,
-  'autoinc' => true,
+  'default' => NULL,
+  'autoinc' => false,
   'primary' => true,
-  'options' => null,
+  'options' => NULL,
 ),
-        'airframe_id' => array(
+        'airframe_id' => array (
   'name' => 'airframe_id',
-  'type' => 'int unsigned',
-  'size' => 10,
+  'type' => 'bigint unsigned',
+  'size' => 20,
   'scale' => 0,
   'notnull' => true,
-  'default' => null,
+  'default' => NULL,
   'autoinc' => false,
   'primary' => false,
-  'options' => null,
+  'options' => NULL,
 ),
-        'livery_type_id' => array(
+        'livery_type_id' => array (
   'name' => 'livery_type_id',
-  'type' => 'int unsigned',
-  'size' => 10,
+  'type' => 'bigint unsigned',
+  'size' => 20,
   'scale' => 0,
   'notnull' => true,
-  'default' => null,
+  'default' => NULL,
   'autoinc' => false,
   'primary' => false,
-  'options' => null,
+  'options' => NULL,
 ),
-        'name' => array(
+        'name' => array (
   'name' => 'name',
   'type' => 'varchar',
   'size' => 75,
-  'scale' => null,
+  'scale' => NULL,
   'notnull' => false,
   'default' => '\'\'',
   'autoinc' => false,
   'primary' => false,
-  'options' => null,
+  'options' => NULL,
 ),
-        'tailno' => array(
+        'tailno' => array (
   'name' => 'tailno',
   'type' => 'varchar',
   'size' => 20,
-  'scale' => null,
+  'scale' => NULL,
   'notnull' => false,
   'default' => '\'\'',
   'autoinc' => false,
   'primary' => false,
-  'options' => null,
+  'options' => NULL,
 ),
-        'storage_path' => array(
+        'storage_path' => array (
   'name' => 'storage_path',
   'type' => 'varchar',
   'size' => 75,
-  'scale' => null,
+  'scale' => NULL,
   'notnull' => true,
   'default' => '\'/unassigned\'',
   'autoinc' => false,
   'primary' => false,
-  'options' => null,
+  'options' => NULL,
 ),
-        'description' => array(
+        'description' => array (
   'name' => 'description',
   'type' => 'mediumtext',
   'size' => 16777215,
-  'scale' => null,
+  'scale' => NULL,
   'notnull' => false,
   'default' => 'NULL',
   'autoinc' => false,
   'primary' => false,
-  'options' => null,
+  'options' => NULL,
 ),
-        'enabled' => array(
+        'enabled' => array (
   'name' => 'enabled',
   'type' => 'tinyint unsigned',
   'size' => 3,
@@ -108,22 +108,22 @@ class LiveryTable extends Table
   'default' => 1,
   'autoinc' => false,
   'primary' => false,
-  'options' => null,
+  'options' => NULL,
 ),
-        'created_at' => array(
+        'created_at' => array (
   'name' => 'created_at',
   'type' => 'datetime',
-  'size' => null,
-  'scale' => null,
+  'size' => NULL,
+  'scale' => NULL,
   'notnull' => true,
   'default' => 'current_timestamp()',
   'autoinc' => false,
   'primary' => false,
-  'options' => null,
+  'options' => NULL,
 ),
     ];
 
-    public const COLUMN_NAMES = [
+    const COLUMN_NAMES = [
         'id',
         'airframe_id',
         'livery_type_id',
@@ -135,7 +135,7 @@ class LiveryTable extends Table
         'created_at',
     ];
 
-    public const COLUMN_DEFAULTS = [
+    const COLUMN_DEFAULTS = [
         'id' => null,
         'airframe_id' => null,
         'livery_type_id' => null,
@@ -147,11 +147,11 @@ class LiveryTable extends Table
         'created_at' => 'current_timestamp()',
     ];
 
-    public const PRIMARY_KEY = [
+    const PRIMARY_KEY = [
         'id',
     ];
 
-    public const AUTOINC_COLUMN = 'id';
+    const AUTOINC_COLUMN = null;
 
-    public const AUTOINC_SEQUENCE = null;
+    const AUTOINC_SEQUENCE = null;
 }

@@ -15,37 +15,47 @@ declare(strict_types=1);
 
 namespace LiveryManager\Domain\Repository;
 
-use DomainException;
+use Atlas\Mapper\Record;
+use DateTimeImmutable;
+use Exception;
 use LiveryManager\DB\Livery\Livery as Mapper;
-use LiveryManager\DB\Livery\LiveryRecord;
 use LiveryManager\Domain\Livery;
 
-class LiveryRepository
+class LiveryRepository extends RepositoryCommon
 {
-    public function __construct(private readonly Mapper $mapper) {}
+   protected static array $fields = ['name', 'tailno', 'description', 'enabled'];
+   protected static string $mapper = Mapper::class;
 
-    public function fetch(int $id): Livery
-    {
-        if(!$record = $this->mapper->fetchRecord($id, ['airframe', 'livery_type', 'developer', 'simulator']))
-        {
-            throw new DomainException('Invalid ID: ' .$id);
-        }
-
-        return static::new($record);
-    }
-
-    public static function new(LiveryRecord $record): Livery
+    public function new(string $name, string $tailno, string $storagePath, string $description, bool $enabled): Livery
     {
         return new Livery(
-            $record->id,
-            ($record->airframe) ? AirframeRepository::new($record->airframe) : null,
-            ($record->livery_type) ? LiveryTypeRepository::new($record->livery_type) : null,
+            $this->uid->generate(),
+            null,
+            null,
+            $name,
+            $tailno,
+            $storagePath,
+            $description,
+            $enabled,
+            new DateTimeImmutable()
+        );
+    }
+
+    /**
+     * @throws Exception
+     */
+    protected function fromRecord(Record $record): Livery
+    {
+        return new Livery(
+            $this->tsid($record->id),
+            $record->airframe,
+            $record->livery_type,
             $record->name,
             $record->tailno,
             $record->storage_path,
             $record->description,
             $record->enabled,
-            $record->created_at
+            new DateTimeImmutable($record->created_at)
         );
     }
 }

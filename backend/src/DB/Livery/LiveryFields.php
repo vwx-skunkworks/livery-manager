@@ -7,9 +7,9 @@ declare(strict_types=1);
 namespace LiveryManager\DB\Livery;
 
 /**
- * @property mixed $id int(10,0) unsigned NOT NULL
- * @property mixed $airframe_id int(10,0) unsigned NOT NULL
- * @property mixed $livery_type_id int(10,0) unsigned NOT NULL
+ * @property mixed $id bigint(20,0) unsigned NOT NULL
+ * @property mixed $airframe_id bigint(20,0) unsigned NOT NULL
+ * @property mixed $livery_type_id bigint(20,0) unsigned NOT NULL
  * @property mixed $name varchar(75)
  * @property mixed $tailno varchar(20)
  * @property mixed $storage_path varchar(75) NOT NULL

@@ -18,26 +18,25 @@ namespace LiveryManager\Domain;
 use DateTimeInterface;
 use JsonSerializable;
 use LiveryManager\Domain\Interface\LiveryInterface;
+use Odan\Tsid\Tsid;
 
 // TODO: add liveries array
 class Livery implements LiveryInterface, JsonSerializable
 {
-    public function __construct(
-        public readonly ?int $id,
-        public readonly ?Airframe $airframe,
-        public readonly ?LiveryType $liveryType,
-        public readonly string $name,
-        public readonly string $tailNumber,
-        public readonly string $storagePath,
-        public readonly string $description,
-        public readonly bool $enabled,
-        public readonly DateTimeInterface $createdAt
-    ) {
-    }
+    use IdentifierTrait;
+    use CreatedAtTrait;
 
-    public function getId(): ?int
-    {
-        return $this->id;
+    public function __construct(
+        private readonly Tsid $uid,
+        private readonly ?Airframe $airframe,
+        private readonly ?LiveryType $liveryType,
+        public  string $name,
+        public  string $tailNumber,
+        private readonly string $storagePath,
+        public  string $description,
+        public  bool $enabled,
+        private readonly DateTimeInterface $createdAt
+    ) {
     }
 
     public function getAirframe(): Airframe
@@ -55,9 +54,21 @@ class Livery implements LiveryInterface, JsonSerializable
         return $this->name;
     }
 
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+        return $this;
+    }
+
     public function getTailNumber(): string
     {
         return $this->tailNumber;
+    }
+
+    public function setTailNumber(string $tailNumber): self
+    {
+        $this->tailNumber = $tailNumber;
+        return $this;
     }
 
     public function getStoragePath(): string
@@ -70,14 +81,21 @@ class Livery implements LiveryInterface, JsonSerializable
         return $this->description;
     }
 
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+        return $this;
+    }
+
     public function getEnabled(): bool
     {
         return $this->enabled;
     }
 
-    public function getCreatedAt(): DateTimeInterface
+    public function setEnabled(bool $enabled): self
     {
-        return $this->createdAt;
+        $this->enabled = $enabled;
+        return $this;
     }
 
     public function jsonSerialize(): array
