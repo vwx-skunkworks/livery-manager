@@ -15,7 +15,9 @@ declare(strict_types=1);
 
 namespace LiveryManager\Domain\Repository;
 
+use Atlas\Mapper\Record;
 use DateTimeImmutable;
+use Exception;
 use LiveryManager\DB\Airframe\Airframe as Mapper;
 use LiveryManager\Domain\Airframe;
 
@@ -24,33 +26,26 @@ class AirframeRepository extends RepositoryCommon
     protected static array $fields = ['name', 'icao', 'description', 'enabled'];
     protected static string $mapper = Mapper::class;
 
-    public function new(string $name, string $icao, string $description): Airframe
+    public static function new(string $name, string $icao, string $description): Airframe
     {
-        return new Airframe(
-            $this->uid->generate(),
-            null,
-            null,
-            null,
-            $name,
-            $icao,
-            $description,
-            true,
-            new DateTimeImmutable()
-        );
+        return new Airframe($name, $icao, $description);
     }
 
+    /**
+     * @throws Exception
+     */
     protected function fromRecord(Record $record): Airframe
     {
         return new Airframe(
-            $this->tsid($record->id),
-            $record->operation,
-            $record->developer,
-            $record->simulator,
             $record->name,
             $record->icao,
             $record->description,
-            (bool) $record->enabled,
-            new DateTimeImmutable($record->created_at)
+            $this->tsid($record->id),
+            new DateTimeImmutable($record->created_at),
+            $record->operation,
+            $record->developer,
+            $record->simulator,
+            (bool) $record->enabled
         );
     }
 }

@@ -15,11 +15,13 @@ declare(strict_types=1);
 
 namespace LiveryManager\Domain;
 
+use DateTimeImmutable;
 use DateTimeInterface;
 use JsonSerializable;
 use LiveryManager\Domain\Interface\CreatedAtInterface;
 use LiveryManager\Domain\Interface\OperationInterface;
 use Odan\Tsid\Tsid;
+use Odan\Tsid\TsidFactory;
 
 // TODO: add airframes array
 class Operation implements OperationInterface, CreatedAtInterface, JsonSerializable
@@ -28,10 +30,16 @@ class Operation implements OperationInterface, CreatedAtInterface, JsonSerializa
     use CreatedAtTrait;
 
     public function __construct(
-        private readonly Tsid $uid,
-        public string $name,
-        private readonly DateTimeInterface $createdAt,
+        protected string $name,
+        private ?Tsid $uid = null,
+        private ?DateTimeInterface $createdAt = null,
     ) {
+        if(!$this->uid) {
+            $this->uid = (new TsidFactory())->generate();
+        }
+        if(!$this->createdAt) {
+            $this->createdAt = new DateTimeImmutable();
+        }
     }
 
     public function getName(): string

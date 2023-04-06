@@ -20,7 +20,9 @@ use LiveryManager\Domain\Livery;
 interface LiveryVersionInterface extends IdentifierInterface
 {
     public function getLivery(): ?Livery;
+    public function setLivery(Livery $livery): self;
     public function getVersion(): string;
+    public function setVersion(string $version): self;
     public function getChangelog(): string;
     public function setChangelog(string $text): self;
     public function getFileName(): string;

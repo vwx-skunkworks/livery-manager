@@ -26,9 +26,9 @@ class SimulatorRepository extends RepositoryCommon
     protected static array  $fields = ['name'];
     protected static string $mapper = Mapper::class;
 
-    public function new(string $name): Simulator
+    public static function new(string $name): Simulator
     {
-        return new Simulator($this->uid->generate(), $name, new DateTimeImmutable());
+        return new Simulator($name);
     }
 
     /**
@@ -37,9 +37,9 @@ class SimulatorRepository extends RepositoryCommon
     protected function fromRecord(Record $record): Simulator
     {
         return new Simulator(
-            $this->tsid($record->id),
             $record->name,
-             new DateTimeImmutable($record->created_at)
+            $this->tsid($record->id),
+            new DateTimeImmutable($record->created_at)
         );
     }
 }

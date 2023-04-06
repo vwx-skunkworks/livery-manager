@@ -15,11 +15,13 @@ declare(strict_types=1);
 
 namespace LiveryManager\Domain;
 
+use DateTimeImmutable;
 use DateTimeInterface;
 use JsonSerializable;
 use LiveryManager\Domain\Interface\CreatedAtInterface;
 use LiveryManager\Domain\Interface\LiveryTypeInterface;
 use Odan\Tsid\Tsid;
+use Odan\Tsid\TsidFactory;
 
 // TODO: add liveries array
 class LiveryType implements LiveryTypeInterface, CreatedAtInterface, JsonSerializable
@@ -28,11 +30,17 @@ class LiveryType implements LiveryTypeInterface, CreatedAtInterface, JsonSeriali
     use CreatedAtTrait;
 
     public function __construct(
-        private readonly Tsid $uid,
-        public string $name,
-        public string $description,
-        private readonly DateTimeInterface $createdAt,
+        protected string $name,
+        protected string $description,
+        private ?Tsid $uid = null,
+        private ?DateTimeInterface $createdAt = null,
     ) {
+        if(!$this->uid) {
+            $this->uid = (new TsidFactory())->generate();
+        }
+        if(!$this->createdAt) {
+            $this->createdAt = new DateTimeImmutable();
+        }
     }
 
     public function getName(): string

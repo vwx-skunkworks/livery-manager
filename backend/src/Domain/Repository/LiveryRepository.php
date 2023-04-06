@@ -26,18 +26,13 @@ class LiveryRepository extends RepositoryCommon
    protected static array $fields = ['name', 'tailno', 'description', 'enabled'];
    protected static string $mapper = Mapper::class;
 
-    public function new(string $name, string $tailno, string $storagePath, string $description, bool $enabled): Livery
+    public static function new(string $name, string $tailno, string $description, string $storagePath): Livery
     {
         return new Livery(
-            $this->uid->generate(),
-            null,
-            null,
             $name,
             $tailno,
-            $storagePath,
             $description,
-            $enabled,
-            new DateTimeImmutable()
+            $storagePath
         );
     }
 
@@ -47,15 +42,15 @@ class LiveryRepository extends RepositoryCommon
     protected function fromRecord(Record $record): Livery
     {
         return new Livery(
-            $this->tsid($record->id),
-            $record->airframe,
-            $record->livery_type,
             $record->name,
             $record->tailno,
-            $record->storage_path,
             $record->description,
+            $record->storage_path,
+            $this->tsid($record->id),
+            new DateTimeImmutable($record->created_at),
+            $record->airframe,
+            $record->livery_type,
             $record->enabled,
-            new DateTimeImmutable($record->created_at)
         );
     }
 }

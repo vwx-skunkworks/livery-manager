@@ -19,7 +19,6 @@ use Atlas\Mapper\Record;
 use DateTimeImmutable;
 use Exception;
 use LiveryManager\DB\LiveryVersion\LiveryVersion as Mapper;
-use LiveryManager\Domain\Livery;
 use LiveryManager\Domain\LiveryVersion;
 
 class LiveryVersionRepository extends RepositoryCommon
@@ -27,19 +26,9 @@ class LiveryVersionRepository extends RepositoryCommon
     protected static array $fields = ['changelog', 'fileName', 'enabled'];
     protected static string $mapper = Mapper::class;
 
-    public function new(
-        ?Livery $livery, string $version, string $fileName, string $changelog = ''
-    ): LiveryVersion
+    public static function new(string $version, string $fileName, string $changelog = ''): LiveryVersion
     {
-        return new LiveryVersion(
-            $this->uid->generate(),
-            $livery,
-            $version,
-            $fileName,
-            $changelog,
-            true,
-            new DateTimeImmutable()
-        );
+        return new LiveryVersion($version, $fileName, $changelog);
     }
 
     /**
@@ -48,13 +37,13 @@ class LiveryVersionRepository extends RepositoryCommon
     protected function fromRecord(Record $record): LiveryVersion
     {
         return new LiveryVersion(
-            $this->tsid($record->id),
-            $record->livery,
             $record->version,
             $record->file_name,
             $record->changelog,
-            (bool) $record->enabled,
-            new DateTimeImmutable($record->created_at)
+            $record->livery,
+            $this->tsid($record->id),
+            new DateTimeImmutable($record->created_at),
+            (bool) $record->enabled
         );
     }
 }

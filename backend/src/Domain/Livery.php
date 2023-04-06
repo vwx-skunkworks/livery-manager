@@ -15,10 +15,12 @@ declare(strict_types=1);
 
 namespace LiveryManager\Domain;
 
+use DateTimeImmutable;
 use DateTimeInterface;
 use JsonSerializable;
 use LiveryManager\Domain\Interface\LiveryInterface;
 use Odan\Tsid\Tsid;
+use Odan\Tsid\TsidFactory;
 
 // TODO: add liveries array
 class Livery implements LiveryInterface, JsonSerializable
@@ -27,16 +29,22 @@ class Livery implements LiveryInterface, JsonSerializable
     use CreatedAtTrait;
 
     public function __construct(
-        private readonly Tsid $uid,
-        private readonly ?Airframe $airframe,
-        private readonly ?LiveryType $liveryType,
-        public  string $name,
-        public  string $tailNumber,
-        private readonly string $storagePath,
-        public  string $description,
-        public  bool $enabled,
-        private readonly DateTimeInterface $createdAt
+        protected string $name,
+        protected string $tailNumber,
+        protected string $description,
+        protected string $storagePath = '',
+        private ?Tsid $uid = null,
+        private ?DateTimeInterface $createdAt = null,
+        protected ?Airframe $airframe = null,
+        protected ?LiveryType $liveryType = null,
+        public bool $enabled = true
     ) {
+        if(!$this->uid) {
+            $this->uid = (new TsidFactory())->generate();
+        }
+        if(!$this->createdAt) {
+            $this->createdAt = new DateTimeImmutable();
+        }
     }
 
     public function getAirframe(): Airframe
@@ -44,9 +52,21 @@ class Livery implements LiveryInterface, JsonSerializable
         return $this->airframe;
     }
 
+    public function setAirframe(Airframe $airframe): self
+    {
+        $this->airframe = $airframe;
+        return $this;
+    }
+
     public function getLiveryType(): LiveryType
     {
         return $this->liveryType;
+    }
+
+    public function setLiveryType(LiveryType $liveryType): self
+    {
+        $this->liveryType = $liveryType;
+        return $this;
     }
 
     public function getName(): string
@@ -74,6 +94,12 @@ class Livery implements LiveryInterface, JsonSerializable
     public function getStoragePath(): string
     {
         return $this->storagePath;
+    }
+
+    public function setStoragePath(string $storagePath): self
+    {
+        $this->storagePath = $storagePath;
+        return $this;
     }
 
     public function getDescription(): string

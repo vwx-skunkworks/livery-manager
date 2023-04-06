@@ -27,9 +27,9 @@ class OperationRepository extends RepositoryCommon
     protected static string $mapper = Mapper::class;
 
 
-    public function new(string $name): Operation
+    public static function new(string $name): Operation
     {
-        return new Operation($this->uid->generate(), $name, new DateTimeImmutable());
+        return new Operation($name);
     }
 
     /**
@@ -38,8 +38,8 @@ class OperationRepository extends RepositoryCommon
     protected function fromRecord(Record $record): Operation
     {
         return new Operation(
-            $this->tsid($record->id),
             $record->name,
+            $this->tsid($record->id),
             new DateTimeImmutable($record->created_at)
         );
     }

@@ -15,11 +15,13 @@ declare(strict_types=1);
 
 namespace LiveryManager\Domain;
 
+use DateTimeImmutable;
 use DateTimeInterface;
 use JsonSerializable;
 use LiveryManager\Domain\Interface\CreatedAtInterface;
 use LiveryManager\Domain\Interface\LiveryVersionInterface;
 use Odan\Tsid\Tsid;
+use Odan\Tsid\TsidFactory;
 
 class LiveryVersion implements LiveryVersionInterface, CreatedAtInterface, JsonSerializable
 {
@@ -27,14 +29,20 @@ class LiveryVersion implements LiveryVersionInterface, CreatedAtInterface, JsonS
     use CreatedAtTrait;
 
     public function __construct(
-        private readonly Tsid $uid,
-        private readonly ?Livery $livery,
-        private readonly string $version,
-        public string $fileName,
-        public string $changelog,
-        public bool $enabled,
-        private readonly DateTimeInterface $createdAt
+        protected string $version,
+        protected string $fileName,
+        protected string $changelog,
+        protected ?Livery $livery = null,
+        private ?Tsid $uid = null,
+        private ?DateTimeInterface $createdAt = null,
+        protected bool $enabled = true
     ) {
+        if(!$this->uid) {
+            $this->uid = (new TsidFactory())->generate();
+        }
+        if(!$this->createdAt) {
+            $this->createdAt = new DateTimeImmutable();
+        }
     }
 
     public function getLivery(): ?Livery
@@ -42,9 +50,21 @@ class LiveryVersion implements LiveryVersionInterface, CreatedAtInterface, JsonS
         return $this->livery;
     }
 
+    public function setLivery(Livery $livery): self
+    {
+        $this->livery = $livery;
+        return $this;
+    }
+
     public function getVersion(): string
     {
         return $this->version;
+    }
+
+    public function setVersion(string $version): self
+    {
+        $this->version = $version;
+        return $this;
     }
 
     public function getFileName(): string
@@ -52,7 +72,7 @@ class LiveryVersion implements LiveryVersionInterface, CreatedAtInterface, JsonS
         return $this->fileName;
     }
 
-    public function setFileName(string $name): LiveryVersionInterface
+    public function setFileName(string $name): self
     {
         $this->fileName = $name;
         return $this;
@@ -63,7 +83,7 @@ class LiveryVersion implements LiveryVersionInterface, CreatedAtInterface, JsonS
         return $this->changelog;
     }
 
-    public function setChangelog(string $text): LiveryVersionInterface
+    public function setChangelog(string $text): self
     {
         $this->changelog = $text;
         return $this;
@@ -74,7 +94,7 @@ class LiveryVersion implements LiveryVersionInterface, CreatedAtInterface, JsonS
         return $this->enabled;
     }
 
-    public function setEnabled(bool $enabled): LiveryVersionInterface
+    public function setEnabled(bool $enabled): self
     {
         $this->enabled = $enabled;
         return $this;

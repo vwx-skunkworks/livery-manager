@@ -17,6 +17,7 @@ namespace LiveryManager\Domain\Repository;
 
 use Atlas\Mapper\Record;
 use DateTimeImmutable;
+use Exception;
 use LiveryManager\DB\Developer\Developer as Mapper;
 use LiveryManager\Domain\Developer;
 
@@ -25,20 +26,19 @@ class DeveloperRepository extends RepositoryCommon
     public static array $fields = ['name'];
     public static string $mapper = Mapper::class;
 
-    public function new(string $name): Developer
+    public static function new(string $name): Developer
     {
-        return new Developer(
-            $this->uid->generate(),
-            $name,
-            new DateTimeImmutable()
-        );
+        return new Developer($name);
     }
 
+    /**
+     * @throws Exception
+     */
     protected function fromRecord(Record $record): object
     {
         return new Developer(
-            $this->tsid($record->id),
             $record->name,
+            $this->tsid($record->id),
             new DateTimeImmutable($record->created_at)
         );
     }

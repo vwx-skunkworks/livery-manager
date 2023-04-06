@@ -21,12 +21,15 @@ use LiveryManager\Domain\LiveryType;
 interface LiveryInterface extends IdentifierInterface
 {
     public function getAirframe(): Airframe;
+    public function setAirframe(Airframe $airframe): self;
     public function getLiveryType(): LiveryType;
+    public function setLiveryType(LiveryType $liveryType): self;
     public function getName(): string;
     public function setName(string $name): self;
     public function getTailNumber(): string;
     public function setTailNumber(string $tailNumber): self;
     public function getStoragePath(): string;
+    public function setStoragePath(string $storagePath): self;
     public function getDescription(): string;
     public function setDescription(string $description): self;
     public function getEnabled(): bool;

@@ -26,15 +26,9 @@ class LiveryTypeRepository extends RepositoryCommon
     protected static array $fields = ['name', 'description'];
     protected static string $mapper = Mapper::class;
 
-
-    public function new(string $name, string $description): LiveryType
+    public static function new(string $name, string $description): LiveryType
     {
-        return new LiveryType(
-            $this->uid->generate(),
-            $name,
-            $description,
-            new DateTimeImmutable()
-        );
+        return new LiveryType($name, $description);
     }
 
     /**
@@ -43,9 +37,9 @@ class LiveryTypeRepository extends RepositoryCommon
     protected function fromRecord(Record $record): object
     {
         return new LiveryType(
-            $this->tsid($record->id),
             $record->name,
             $record->description,
+            $this->tsid($record->id),
             new DateTimeImmutable($record->created_at)
         );
     }

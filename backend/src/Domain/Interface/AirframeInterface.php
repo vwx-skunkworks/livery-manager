@@ -22,8 +22,11 @@ use LiveryManager\Domain\Simulator;
 interface AirframeInterface extends IdentifierInterface
 {
     public function getOperation(): ?Operation;
+    public function setOperation(Operation $operation): self;
     public function getDeveloper(): ?Developer;
+    public function setDeveloper(Developer $developer): self;
     public function getSimulator(): ?Simulator;
+    public function setSimulator(Simulator $simulator): self;
     public function getName(): string;
     public function setName(string $name): self;
     public function getIcao(): string;

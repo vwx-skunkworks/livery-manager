@@ -15,11 +15,13 @@ declare(strict_types=1);
 
 namespace LiveryManager\Domain;
 
+use DateTimeImmutable;
 use DateTimeInterface;
 use JsonSerializable;
 use LiveryManager\Domain\Interface\AirframeInterface;
 use LiveryManager\Domain\Interface\CreatedAtInterface;
 use Odan\Tsid\Tsid;
+use Odan\Tsid\TsidFactory;
 
 class Airframe implements AirframeInterface, CreatedAtInterface, JsonSerializable
 {
@@ -27,16 +29,22 @@ class Airframe implements AirframeInterface, CreatedAtInterface, JsonSerializabl
     use CreatedAtTrait;
 
     public function __construct(
-        private readonly Tsid $uid,
-        private readonly ?Operation $operation,
-        private readonly ?Developer $developer,
-        private readonly ?Simulator $simulator,
-        public string $name,
-        public string $icao,
-        public ?string $description,
-        public bool $enabled,
-        private readonly DateTimeInterface $createdAt
+        protected string $name,
+        protected string $icao,
+        protected ?string $description,
+        private ?Tsid $uid = null,
+        private ?DateTimeInterface $createdAt = null,
+        protected ?Operation $operation = null,
+        protected ?Developer $developer = null,
+        protected ?Simulator $simulator = null,
+        protected bool $enabled = true
     ) {
+        if(!$this->uid) {
+            $this->uid = (new TsidFactory())->generate();
+        }
+        if(!$this->createdAt) {
+            $this->createdAt = new DateTimeImmutable();
+        }
     }
 
     public function getOperation(): ?Operation
@@ -44,14 +52,32 @@ class Airframe implements AirframeInterface, CreatedAtInterface, JsonSerializabl
         return $this->operation;
     }
 
+    public function setOperation(Operation $operation): self
+    {
+        $this->operation = $operation;
+        return $this;
+    }
+
     public function getDeveloper(): ?Developer
     {
         return $this->developer;
     }
 
+    public function setDeveloper(Developer $developer): self
+    {
+        $this->developer = $developer;
+        return $this;
+    }
+
     public function getSimulator(): ?Simulator
     {
         return $this->simulator;
+    }
+
+    public function setSimulator(Simulator $simulator): self
+    {
+        $this->simulator = $simulator;
+        return $this;
     }
 
     public function getName(): string
