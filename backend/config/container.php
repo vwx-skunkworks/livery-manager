@@ -25,6 +25,7 @@ use Psr\Http\Message\ServerRequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\UploadedFileFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
+use Psr\Log\LoggerInterface;
 use Selective\BasePath\BasePathMiddleware;
 use Slim\App;
 use Slim\Interfaces\RouteParserInterface;
@@ -44,6 +45,14 @@ return [
         (require __DIR__ . '/middleware.php')($app);
 
         return $app;
+    },
+
+    LoggerInterface::class => static function(ContainerInterface $container) {
+       $logger = $container->get(LoggerFactory::class)
+            ->addFileHandler('application.log')
+            ->createLogger('lm-backend');
+
+       return $logger;
     },
 
     // The logger factory
