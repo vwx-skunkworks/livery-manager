@@ -49,7 +49,7 @@ abstract class RepositoryCommon
 
     public function delete(int|string $id): bool
     {
-        return $this->baseDelete(self::$mapper, $id);
+        return $this->baseDelete(static::$mapper, $id);
     }
 
     /**
@@ -57,7 +57,7 @@ abstract class RepositoryCommon
      */
     public function create(array $data): int|string
     {
-        return $this->baseCreate(self::$mapper, $this->filter($data, self::$fields));
+        return $this->baseCreate(static::$mapper, $this->filter($data, static::$fields));
     }
 
     /**
@@ -65,7 +65,7 @@ abstract class RepositoryCommon
      */
     public function update(int|string $id, array $data): bool
     {
-        return $this->baseUpdate(self::$mapper, $id, $this->filter($data, self::$fields));
+        return $this->baseUpdate(static::$mapper, $id, $this->filter($data, static::$fields));
     }
 
     /**
@@ -73,12 +73,12 @@ abstract class RepositoryCommon
      */
     public function fetch(int|string $id): Record
     {
-        return $this->baseFetch(self::$mapper, $id);
+        return $this->baseFetch(static::$mapper, $id);
     }
 
     public function fetchAll(): array
     {
-        return $this->baseFetchAll(self::$mapper);
+        return $this->baseFetchAll(static::$mapper);
     }
 
     abstract protected function fromRecord(Record $record): object;
