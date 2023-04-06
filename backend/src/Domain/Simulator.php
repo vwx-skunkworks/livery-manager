@@ -24,22 +24,14 @@ use Odan\Tsid\Tsid;
 // TODO: add airframes array
 class Simulator implements SimulatorInterface, CreatedAtInterface, JsonSerializable
 {
+    use IdentifierTrait;
+    use CreatedAtTrait;
 
     public function __construct(
         public readonly Tsid $uid,
         public string $name,
         public readonly DateTimeInterface $createdAt,
     ) {}
-
-    public function getId(): string
-    {
-        return $this->uid->toString();
-    }
-
-    public function getUid(): int
-    {
-        return $this->uid->toInt();
-    }
 
     public function getName(): string
     {
@@ -51,12 +43,7 @@ class Simulator implements SimulatorInterface, CreatedAtInterface, JsonSerializa
         $this->name = $name;
         return $this;
     }
-
-    public function getCreatedAt(): DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
+    
     public function jsonSerialize(): array
     {
         return [

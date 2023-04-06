@@ -15,15 +15,12 @@ declare(strict_types=1);
 
 namespace LiveryManager\Domain;
 
-trait IdentifierTrait
-{
-    public function getId(): string
-    {
-        return $this->uid->toString();
-    }
+use DateTimeInterface;
 
-    public function getUid(): int
+trait CreatedAtTrait
+{
+    public function getCreatedAt(): DateTimeInterface
     {
-        return $this->uid->toInt();
+        return $this->createdAt;
     }
 }
