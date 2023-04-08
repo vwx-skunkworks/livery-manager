@@ -34,8 +34,10 @@ final class JsonRenderer
             'data' => $data,
         ];
 
-        $response = $response->withHeader('Content-Type', 'application/json');
-        $response->getBody()->write((string)json_encode($json, $options));
+        // TODO: CORS and access control middleware
+        $response = $response->withHeader('Content-Type', 'application/json; charset=utf-8')
+            ->withHeader('Access-Control-Allow-Origin', '*');
+        $response->getBody()->write(json_encode($json, $options));
 
         return $response;
     }
