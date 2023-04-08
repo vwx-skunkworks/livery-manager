@@ -1,35 +1,40 @@
-@import './base.css';
+/*
+ * Copyright (c) 2023 VWX Systems
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+
+html {
+  height: -webkit-fill-available;
+}
+
+body {
+  min-height: 100vh !important;
+  min-height: -webkit-fill-available;
+}
 
 #app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  padding-top: 0.25rem !important;
+  min-height: 100vh !important;
+  min-height: -webkit-fill-available;
+}
 
+@font-face {
+  font-family: 'Keypunch029Regular';
+  src: url('font/Keypunch029.otf') format('opentype');
   font-weight: normal;
+  font-style: normal;
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-}
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
+@font-face {
+  font-family: 'Keypunch029Bold';
+  src: url('font/Keypunch029-Bold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
 }

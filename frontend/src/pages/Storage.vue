@@ -10,23 +10,14 @@
   - GNU General Public License for more details.
   -->
 
-<script setup>
-import Header from '@/components/Header.vue'
-</script>
-
 <template>
-    <Header />
-    <main class="d-flex flex-column flex-md-row">
-        <router-view></router-view>
-    </main>
+    <h1>Storage</h1>
 </template>
+
+<script setup>
+
+</script>
 
 <style scoped>
 
-main {
-    /*    min-height: -webkit-fill-available; */
-}
-
-@media (min-width: 1024px) {
-}
 </style>
