@@ -1,4 +1,3 @@
-<?php
 /*
  * Copyright (c) 2023 VWX Systems
  * This program is free software: you can redistribute it and/or modify
@@ -10,19 +9,14 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
+import 'vite/modulepreload-polyfill'
+import '@/css/main.css'
+import '@popperjs/core'
+import 'bootstrap/dist/js/bootstrap.bundle.js'
+import 'bootstrap/scss/bootstrap.scss'
+import '@/scripts/themeset.js'
 
-declare(strict_types=1);
-
-namespace LiveryManager\Action\Home;
-
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
-use Slim\Views\Twig;
-
-final class HomeAction
-{
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
-    {
-        return Twig::fromRequest($request)->render($response, 'index.twig');
-    }
-}
+document.addEventListener("DOMContentLoaded", function(event) {
+    const activeLink = document.querySelector('#topnavigationbar a[href^="/' + location.pathname.split("/")[1] + '"]');
+    activeLink.className += ' active';
+});

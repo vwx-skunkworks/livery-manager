@@ -13,23 +13,23 @@
 
 declare(strict_types=1);
 
-namespace LiveryManager\Action;
+namespace LiveryManager\Action\Api;
 
-use LiveryManager\Domain\Repository\DeveloperRepository;
+use LiveryManager\Domain\Repository\OperationRepository;
 use LiveryManager\Renderer\JsonRenderer;
 use Slim\Routing\RouteCollectorProxy;
 
-class DeveloperAction extends ActionCommon
+class OperationAction extends ActionCommon
 {
     public function __construct(
-        protected readonly DeveloperRepository $repository,
+        protected readonly OperationRepository $repository,
         protected readonly JsonRenderer $renderer
     ) {}
 
     public static function registerRoutes(RouteCollectorProxy $app): void
     {
         $app->group(
-            '/developer',
+            '/operation',
             function(RouteCollectorProxy $app) {
                 $app->get('/{id}', [__CLASS__, 'fetch']);
                 $app->put('/{id}', [__CLASS__, 'update']);

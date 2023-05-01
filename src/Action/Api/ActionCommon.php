@@ -13,7 +13,7 @@
 
 declare(strict_types=1);
 
-namespace LiveryManager\Action;
+namespace LiveryManager\Action\Api;
 
 use DomainException;
 use Exception;
@@ -25,7 +25,6 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 use function json_decode;
-
 use function strtoupper;
 
 use const JSON_THROW_ON_ERROR;

@@ -13,20 +13,22 @@
 
 declare(strict_types=1);
 
-use Middlewares\TrailingSlash;
-use Selective\BasePath\BasePathMiddleware;
-use Slim\App;
-use Slim\Middleware\ErrorMiddleware;
-use Slim\Views\Twig;
-use Slim\Views\TwigMiddleware;
+namespace LiveryManager\Action\Storage;
 
-// TODO: CORS middleware
-return static function (App $app) {
-    $s = $app->getContainer()->get('settings')['view'];
-    $app->addBodyParsingMiddleware();
-    $app->add(TwigMiddleware::create($app, Twig::create($s['template_dir'], ['cache' => $s['cache_dir']])));
-    $app->addRoutingMiddleware();
-    $app->add(new TrailingSlash());
-    $app->add(BasePathMiddleware::class);
-    $app->add(ErrorMiddleware::class);
-};
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Slim\Routing\RouteCollectorProxy;
+use Slim\Views\Twig;
+
+class StorageAction
+{
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
+    {
+        return Twig::fromRequest($request)->render($response, 'storage.twig');
+    }
+
+    public static function registerRoutes(RouteCollectorProxy $app): void
+    {
+        $app->get('', __CLASS__);
+    }
+}

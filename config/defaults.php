@@ -1,18 +1,14 @@
 <?php
-/**
- * .
+/*
+ * Copyright (c) 2023 VWX Systems
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or any later version.
  *
- *     Flight Sim Livery Manager
- *     Copyright (c) 2023  VWX Systems
- *
- *     This program is free software: you can redistribute it and/or modify
- *     it under the terms of the GNU Lesser General Public License as published by
- *     the Free Software Foundation, either version 3 of the License, or any later version.
- *
- *     This program is distributed in the hope that it will be useful,
- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *     GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  */
 
 declare(strict_types=1);
@@ -34,6 +30,16 @@ ini_set('display_startup_errors', '0');
 date_default_timezone_set('Etc/UTC');
 
 $settings = [];
+
+// default environment is dev
+$settings['environment'] = 'dev';
+
+$settings['view'] = [
+    // View Templates
+    'template_dir' => Env::get('TEMPLATE_DIR') ?? __DIR__.'/../templates',
+    'cache_dir' => Env::get('TEMPLATE_CACHE_DIR') ?? false,
+    // View Cache
+];
 
 // Error handler
 $settings['error'] = [

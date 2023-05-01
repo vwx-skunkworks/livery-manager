@@ -30,10 +30,26 @@ use Selective\BasePath\BasePathMiddleware;
 use Slim\App;
 use Slim\Interfaces\RouteParserInterface;
 use Slim\Middleware\ErrorMiddleware;
+use Slim\Views\Twig;
+use Slim\Views\TwigMiddleware;
 
 return [
     // App settings
     'settings' => static fn () => require __DIR__ . '/settings.php',
+
+    'view' => function(ContainerInterface $container) {
+        $s = $container->get('settings')['view'];
+        return Twig::create($s['template_dir'], ['cache' => $s['cache_dir']]);
+    },
+
+    ContainerInterface::class => static function(ContainerInterface $container): ContainerInterface {
+        return $container;
+    },
+
+    TwigMiddleware::class => function (ContainerInterface $container): Twig {
+        $s = $container->get('settings')['view'];
+        return Twig::create($s['template_dir'], ['cache' => $s['cache_dir']]);
+    },
 
     App::class => static function (ContainerInterface $container): App {
         $app = Bridge::create($container);

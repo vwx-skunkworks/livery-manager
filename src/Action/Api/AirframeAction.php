@@ -13,7 +13,7 @@
 
 declare(strict_types=1);
 
-namespace LiveryManager\Action;
+namespace LiveryManager\Action\Api;
 
 use LiveryManager\Domain\Repository\AirframeRepository;
 use LiveryManager\Renderer\JsonRenderer;
