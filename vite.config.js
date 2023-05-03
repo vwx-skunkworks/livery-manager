@@ -27,12 +27,13 @@ export default defineConfig({
     },
     resolve: {
         alias: {
-            '@':        fileURLToPath(new URL('./web', import.meta.url)),
-            '@public':  fileURLToPath(new URL('./public', import.meta.url)),
-            '@assets':  fileURLToPath(new URL('./public/assets', import.meta.url)),
-            '@css':     fileURLToPath(new URL('./web/css', import.meta.url)),
-            '@js':      fileURLToPath(new URL('./web/js', import.meta.url)),
-            '@scripts': fileURLToPath(new URL('./web/scripts', import.meta.url)),
+            '@':            fileURLToPath(new URL('./web', import.meta.url)),
+            '@public':      fileURLToPath(new URL('./public', import.meta.url)),
+            '@assets':      fileURLToPath(new URL('./public/assets', import.meta.url)),
+            '@css':         fileURLToPath(new URL('./web/css', import.meta.url)),
+            '@js':          fileURLToPath(new URL('./web/js', import.meta.url)),
+            '@scripts':     fileURLToPath(new URL('./web/scripts', import.meta.url)),
+            '@bootstrap':   fileURLToPath(new URL('./node_modules/bootstrap', import.meta.url)),
         }
     }
 })

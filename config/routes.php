@@ -16,7 +16,7 @@ declare(strict_types=1);
 use LiveryManager\Action\Api\AirframeAction;
 use LiveryManager\Action\Changelog\ChangelogAction;
 use LiveryManager\Action\Api\DeveloperAction;
-use LiveryManager\Action\Api\LiveryAction;
+use LiveryManager\Action\Api\LiveryAction as ApiLiveryAction;
 use LiveryManager\Action\Api\LiveryTypeAction;
 use LiveryManager\Action\Api\LiveryVersionAction;
 use LiveryManager\Action\Api\OperationAction;
@@ -24,7 +24,7 @@ use LiveryManager\Action\Api\SimulatorAction;
 use LiveryManager\Action\Faq\FaqAction;
 use LiveryManager\Action\Home\HomeAction;
 use LiveryManager\Action\Settings\SettingsAction;
-use LiveryManager\Action\Storage\StorageAction;
+use LiveryManager\Action\Livery\LiveryAction;
 use Slim\App;
 use Slim\Routing\RouteCollectorProxy;
 
@@ -44,9 +44,9 @@ return static function (App $app) {
         });
 
     $app->group(
-        '/storage',
+        '/liveries',
         function(RouteCollectorProxy $app) {
-            StorageAction::registerRoutes($app);
+            LiveryAction::registerRoutes($app);
         });
 
     $app->group(
@@ -60,7 +60,7 @@ return static function (App $app) {
         function (RouteCollectorProxy $app) {
             AirframeAction::registerRoutes($app);
             DeveloperAction::registerRoutes($app);
-            LiveryAction::registerRoutes($app);
+            ApiLiveryAction::registerRoutes($app);
             LiveryTypeAction::registerRoutes($app);
             LiveryVersionAction::registerRoutes($app);
             OperationAction::registerRoutes($app);

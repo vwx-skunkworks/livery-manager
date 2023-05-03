@@ -9,16 +9,12 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-import 'vite/modulepreload-polyfill'
-import '@/css/main.css'
-import * as bootstrap from 'bootstrap'
-import '@popperjs/core'
-import '@bootstrap/dist/js/bootstrap.bundle.js'
-import '@bootstrap/scss/bootstrap.scss'
-import '@scripts/themeset.js'
 
+import axios from "axios";
 
-document.addEventListener("DOMContentLoaded", function(event) {
-    const activeLink = document.querySelector('#topnavigationbar a[href^="/' + location.pathname.split("/")[1] + '"]');
-    activeLink.className += ' active';
+export default axios.create({
+    baseURL: '/api',
+    headers: {
+        "Content-type": "application/json"
+    }
 });

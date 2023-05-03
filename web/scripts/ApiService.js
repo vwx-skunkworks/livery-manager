@@ -1,4 +1,3 @@
-<?php
 /*
  * Copyright (c) 2023 VWX Systems
  * This program is free software: you can redistribute it and/or modify
@@ -11,24 +10,28 @@
  * GNU General Public License for more details.
  */
 
-declare(strict_types=1);
+import http from '@scripts/http'
 
-namespace LiveryManager\Action\Storage;
-
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
-use Slim\Routing\RouteCollectorProxy;
-use Slim\Views\Twig;
-
-class StorageAction
-{
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
-    {
-        return Twig::fromRequest($request)->render($response, 'storage.twig');
+class ApiService {
+    getAll(item) {
+        return http.get(`/${item}`);
     }
 
-    public static function registerRoutes(RouteCollectorProxy $app): void
-    {
-        $app->get('', __CLASS__);
+    get(item, id) {
+        return http.get(`/${item}/${id}`);
+    }
+
+    create(item, data) {
+        return http.post(`/${item}`, data);
+    }
+
+    update(item, id, data) {
+        return http.put(`/${item}/${id}`, data);
+    }
+
+    delete(item, id) {
+        return http.delete(`/${item}/${id}`)
     }
 }
+
+export default new ApiService();

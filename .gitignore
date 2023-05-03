@@ -161,6 +161,7 @@ phpunit.xml
 
 # Build data
 /build/
+/dist/
 
 ### Windows ###
 # Windows thumbnail cache files

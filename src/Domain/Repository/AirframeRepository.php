@@ -19,12 +19,30 @@ use Atlas\Mapper\Record;
 use DateTimeImmutable;
 use Exception;
 use LiveryManager\DB\Airframe\Airframe as Mapper;
+use LiveryManager\DB\Developer\Developer;
+use LiveryManager\DB\Operation\Operation;
+use LiveryManager\DB\Simulator\Simulator;
 use LiveryManager\Domain\Airframe;
+use PhpParser\Node\Stmt\Static_;
 
 class AirframeRepository extends RepositoryCommon
 {
-    protected static array $fields = ['name', 'icao', 'description', 'enabled'];
+    protected static array $fields = ['name', 'icao', 'description', 'enabled', 'operation_id', 'simulator_id', 'developer_id'];
     protected static string $mapper = Mapper::class;
+
+    public function fetchAll(): array
+    {
+        $records = $this->db->select(static::$mapper)->fetchRecords();
+
+        foreach($records as $rec) {
+            $rec->operation = $this->db->fetchRecord(Operation::class, $rec->operation_id);
+            $rec->developer = $this->db->fetchRecord(Developer::class, $rec->developer_id);
+            $rec->simulator = $this->db->fetchRecord(Simulator::class, $rec->simulator_id);
+        }
+
+        return $records;
+    }
+
 
     public static function new(string $name, string $icao, string $description): Airframe
     {
