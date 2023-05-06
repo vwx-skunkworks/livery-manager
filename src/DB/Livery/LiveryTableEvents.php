@@ -19,6 +19,8 @@ use Atlas\Table\Row;
 use Atlas\Table\Table;
 use Atlas\Table\TableEvents;
 
+use Dflydev\Base32\Crockford\Crockford;
+
 use function date;
 
 class LiveryTableEvents extends TableEvents
@@ -27,6 +29,11 @@ class LiveryTableEvents extends TableEvents
     {
         /** @var LiveryRow $row */
         $row->created_at = date('Y-m-d H:i:s');
+
+        error_log(print_r($row, true), 4);
+        $row->airframe_id = Crockford::decode($row->airframe_id);
+        $row->livery_type_id = Crockford::decode($row->livery_type_id);
+
         return null;
     }
 }

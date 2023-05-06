@@ -15,6 +15,7 @@ declare(strict_types=1);
 
 namespace LiveryManager\Action\Changelog;
 
+use LiveryManager\Domain\Repository\LiveryVersionRepository;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Routing\RouteCollectorProxy;
@@ -22,9 +23,19 @@ use Slim\Views\Twig;
 
 class ChangelogAction
 {
+    public function __construct(
+        protected readonly LiveryVersionRepository $repository,
+    ) {}
+
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
-        return Twig::fromRequest($request)->render($response, 'changelog.twig');
+        $rec = $this->repository->fetchAll();
+
+        return Twig::fromRequest($request)->render(
+            $response,
+            'changelog.twig',
+            ['records' => $rec]
+        );
     }
 
     public static function registerRoutes(RouteCollectorProxy $app): void

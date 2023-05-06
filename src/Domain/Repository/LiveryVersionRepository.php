@@ -16,19 +16,49 @@ declare(strict_types=1);
 namespace LiveryManager\Domain\Repository;
 
 use Atlas\Mapper\Record;
+use Atlas\Orm\Atlas;
 use DateTimeImmutable;
 use Exception;
 use LiveryManager\DB\LiveryVersion\LiveryVersion as Mapper;
 use LiveryManager\Domain\LiveryVersion;
+use Odan\Tsid\TsidFactory;
+use Psr\Log\LoggerInterface;
 
 class LiveryVersionRepository extends RepositoryCommon
 {
     protected static array $fields = ['changelog', 'fileName', 'enabled'];
     protected static string $mapper = Mapper::class;
 
+    public function __construct(
+        Atlas $db,
+        TsidFactory $uid,
+        LoggerInterface $logger,
+        protected readonly LiveryRepository $liveryRepository
+    ) {
+        parent::__construct(
+            $db,
+            $uid,
+            $logger
+        );
+    }
+
     public static function new(string $version, string $fileName, string $changelog = ''): LiveryVersion
     {
         return new LiveryVersion($version, $fileName, $changelog);
+    }
+
+    public function fetchAll(): array
+    {
+        $records = $this->db->select(static::$mapper)
+            ->orderBy('id DESC')
+            ->limit(100)
+            ->fetchRecords();
+
+        foreach($records as $rec) {
+            $rec->livery = $this->liveryRepository->fetch($rec->livery_id);
+        }
+
+        return $records;
     }
 
     /**

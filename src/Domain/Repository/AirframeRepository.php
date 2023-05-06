@@ -23,16 +23,25 @@ use LiveryManager\DB\Developer\Developer;
 use LiveryManager\DB\Operation\Operation;
 use LiveryManager\DB\Simulator\Simulator;
 use LiveryManager\Domain\Airframe;
-use PhpParser\Node\Stmt\Static_;
 
 class AirframeRepository extends RepositoryCommon
 {
     protected static array $fields = ['name', 'icao', 'description', 'enabled', 'operation_id', 'simulator_id', 'developer_id'];
     protected static string $mapper = Mapper::class;
 
+    public function fetch(int|string $id): Record
+    {
+        $rec = $this->baseFetch(static::$mapper, $id);
+        $rec->operation = $this->db->fetchRecord(Operation::class, $rec->operation_id);
+        $rec->developer = $this->db->fetchRecord(Developer::class, $rec->developer_id);
+        $rec->simulator = $this->db->fetchRecord(Simulator::class, $rec->simulator_id);
+
+        return $rec;
+    }
+
     public function fetchAll(): array
     {
-        $records = $this->db->select(static::$mapper)->fetchRecords();
+        $records = $this->baseFetchAll(static::$mapper);
 
         foreach($records as $rec) {
             $rec->operation = $this->db->fetchRecord(Operation::class, $rec->operation_id);

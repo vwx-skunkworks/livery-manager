@@ -11,9 +11,7 @@
  */
 import 'vite/modulepreload-polyfill'
 import '@/css/main.css'
-import * as bootstrap from 'bootstrap'
-import '@popperjs/core'
-import '@bootstrap/dist/js/bootstrap.bundle.js'
+import * as bootstrap from '@bootstrap'
 import '@bootstrap/scss/bootstrap.scss'
 import '@scripts/themeset.js'
 

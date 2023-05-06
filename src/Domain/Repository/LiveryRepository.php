@@ -16,15 +16,68 @@ declare(strict_types=1);
 namespace LiveryManager\Domain\Repository;
 
 use Atlas\Mapper\Record;
+use Atlas\Orm\Atlas;
 use DateTimeImmutable;
 use Exception;
+use LiveryManager\DB\Airframe\Airframe;
 use LiveryManager\DB\Livery\Livery as Mapper;
+use LiveryManager\DB\LiveryType\LiveryType;
+use LiveryManager\DB\LiveryVersion\LiveryVersion;
 use LiveryManager\Domain\Livery;
+use Odan\Tsid\TsidFactory;
+use Psr\Log\LoggerInterface;
 
 class LiveryRepository extends RepositoryCommon
 {
-   protected static array $fields = ['name', 'tailno', 'description', 'enabled'];
+   protected static array $fields = ['name', 'airframe_id', 'livery_type_id', 'tailno', 'storage_path', 'description', 'enabled'];
    protected static string $mapper = Mapper::class;
+
+   public function __construct(
+       Atlas $db,
+       TsidFactory $uid,
+       LoggerInterface $logger,
+       protected readonly AirframeRepository $airframeRepository,
+       protected readonly LiveryTypeRepository $liveryTypeRepository
+   ) {
+       parent::__construct(
+           $db,
+           $uid,
+           $logger
+       );
+   }
+
+    public function fetch(int|string $id): Record
+    {
+        $rec = $this->baseFetch(static::$mapper, $id);
+        $rec->airframe = $this->airframeRepository->fetch($rec->airframe_id);
+        $rec->livery_type = $this->liveryTypeRepository->fetch($rec->livery_type_id);
+
+        return $rec;
+    }
+
+    public function fetchAll(): array
+    {
+        $records = $this->baseFetchAll(static::$mapper);
+        $recArray = [];
+
+        foreach($records as $rec) {
+            $rec->airframe = $this->airframeRepository->fetch($rec->airframe_id);
+            $rec->livery_type = $this->liveryTypeRepository->fetch($rec->livery_type_id);
+            $ac = $rec->getArrayCopy();
+            $ac['latest'] = $this->db->select(LiveryVersion::class)
+                ->where('livery_id = ', $ac['id'])
+                ->orderBy('id DESC')
+                ->limit(1)
+                ->fetchRecord();
+            if(!is_null($ac['latest'])) {
+                $ac['latest'] = $ac['latest']->getArrayCopy();
+            }
+            $recArray[] = $ac;
+        }
+
+        return $recArray;
+    }
+
 
     public static function new(string $name, string $tailno, string $description, string $storagePath): Livery
     {

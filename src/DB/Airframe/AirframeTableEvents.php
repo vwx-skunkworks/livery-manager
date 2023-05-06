@@ -19,6 +19,8 @@ use Atlas\Table\Row;
 use Atlas\Table\Table;
 use Atlas\Table\TableEvents;
 
+use Dflydev\Base32\Crockford\Crockford;
+
 use function date;
 
 class AirframeTableEvents extends TableEvents
@@ -27,6 +29,11 @@ class AirframeTableEvents extends TableEvents
     {
         /** @var AirframeRow $row */
         $row->created_at = date('Y-m-d H:i:s');
+
+        $row->simulator_id = Crockford::decode($row->simulator_id);
+        $row->operation_id = Crockford::decode($row->operation_id);
+        $row->developer_id = Crockford::decode($row->developer_id);
+
         return null;
     }
 }

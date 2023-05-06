@@ -88,9 +88,15 @@ abstract class RepositoryCommon
         return new Tsid($id);
     }
 
-    protected function uidConvert(string $uid): string
+    /**
+     * Convert Crockford-base32 to integer
+     *
+     * @param string $uid
+     * @return string
+     */
+    protected function uidConvert(int|string $uid): string
     {
-        return (string) Crockford::decode($uid);
+        return (string) Crockford::decode((string) $uid);
     }
 
     protected function camelToSnake(string $identifier): string
@@ -122,7 +128,11 @@ abstract class RepositoryCommon
      */
     protected function baseFetch(string $class, int|string $uid): Record
     {
-        $id = $this->uidConvert($uid);
+        if(\is_string($uid)) {
+            $id = $this->uidConvert($uid);
+        } else {
+            $id = $uid;
+        }
 
         if (!$record = $this->db->fetchRecord($class, $id)) {
             throw new DomainException('Invalid ID: ' . $uid, 404);
@@ -137,6 +147,7 @@ abstract class RepositoryCommon
      */
     protected function baseCreate(string $class, array $data): string|int
     {
+        error_log(print_r($data, true), 4);
         $new  = $this->db->newRecord($class, $data);
         $tsid = $this->uid->generate();
         $new->id = $tsid->toInt();
