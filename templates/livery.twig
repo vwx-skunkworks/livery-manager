@@ -59,7 +59,7 @@
                     <div class="d-flex flex-row p-2">
                         <div class="w-50 fs-3"><a href="#">{{ r.airframe.name }}</a></div>
                         <div class="fs-5">{{ r.airframe.icao }}</div>
-                        <div class="flex-fill text-end"><button class="btn btn-primary">Upload New Version</button></div>
+                        <div class="flex-fill text-end"><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newVersionModal">Upload New Version</button></div>
                     </div>
                     <div class="d-flex flex-row p-2">
                         <div class="flex-fill fs-5">{{ r.airframe.simulator.name }}</div>
@@ -80,6 +80,41 @@
                 </div>
             </div>
             {% endfor %}
+        </div>
+    </div>
+
+    <div id="newVersionModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Upload new Version (nonfunctioning mockup)</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">New version of (insert livery here)</div>
+                    <div>
+                        <form>
+                            <div class="mb-2">
+                                <label for="version" class="form-label fw-bold">New Version Number</label>
+                                <input type="text" class="form-control" id="version" name="version" />
+                            </div>
+                            <div class="mb-2">
+                                <label for="changelog" class="form-label fw-bold">Change Log</label>
+                                <textarea class="form-control" id="changelog" name="changelog" placeholder="Changelog here..."></textarea>
+                            </div>
+                            <div>
+                                <label for="liveryFile" class="form-label fw-bold">Livery File</label>
+                                <input class="form-control" type="file" id="liveryFile" />
+                                <span class="fs-6">(note: file will be renamed based on configured format)</span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

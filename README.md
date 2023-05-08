@@ -1,7 +1,61 @@
 # LiveryManager
 
-This is a prototype markup for a VA livery management system.
+This is a mockup for a VA livery management system.
 
-It is not meant for production use - it has few to no validation checks, security constraints, or logic to keep people from severely breaking the system.
+## Hello There, this is a prototype.
+This is currently a very loose prototype for a Virtual Airline Livery Manager.
 
-Test as your own risk. May induce vomiting.
+
+The basic concept is thus: On the backend, you have yourself, or whatever team you may
+have, that create liveries for your virtual airline. Your VA software may already have
+a structure for airframes and their properties, or it may not.
+
+This software would add on a system to be able to manage liveries for those airframes,
+categorized - we all know that liveries must be broken down by  simulator and developer
+(e.g. PMDG P3D liveries are different from PMDG MSFS liveries).
+So that's a basic given. One airframe might have multiple paints, so you can also define
+multiple paints/types for any sim/dev livery combo.
+
+From a front-end user perspective, the system allows for basic browsing of the liveries
+for download. Or, if developed further, browsed via api access in 3rd party systems
+implementations, such as SmartCARS 3. 
+
+One possibility would be for the ability of a VA  to help keep a pilot's liveries 
+up-to-date (if the pilot so wishes) by using a SC3 plugin to alert the pilot of an 
+update for their plane's livery. I'm sure there's other ACARS systems that I don't 
+know about that could benefit from integration too.
+
+From a back-end user perspective, airframes and their liveries have an atomic list of
+changes that include versioning, changelogs for each version, and ability to
+download previous versions. Painters or admins can push out a new livery version and
+have external systems notified of the change. Everything is kept neat and tidy and
+centralized to hopefully help further self-support and make it easier for both admins
+and pilots.
+
+The backend storage for downloadable liveries can be built simple - files on a
+filesystem, for example. It can be on S3-compatible storage. It could even
+interface in a more complex way with already-existing storage backends. If the need
+or request for support is there, it can be developed. The prototype is currently
+storage agnostic because, frankly, I didn't have time.
+
+I'm just hoping to spur development of something that might be helpful in the flight sim
+world.
+
+### This utility is *not* usable in its current form.
+
+Please note, this is only a rapidly-developed prototype at the moment. There is zero of anything
+that could be construed as AAA, security, good practices, or whatnot. The backend logic is barely fleshed
+out; the frontend is barebones with no correct responsive behavior and barely-functioning code only meant to
+make the thing work enough to think through some things. I began by co-developing
+this alongside an unrelated contract project and quickly moved from "make every good decision from the
+beginning" to "just hack together what you envision it to look like and fill in the holes later".
+It was made because I want to give back to the community that helped me through some of the worst
+times of the pandemic, but I haven't quite figured out how, or gotten to know the right people,
+or something. I dunno. So I'm just dumping this on github to see what comes.
+
+It is a very niche tool, but it's one that I had an idea to build after seeing someone
+struggle a bit with livery choices. Hopefully someone likes the idea and we can
+rebuild/retool this crappy prototype to integrate it with VA software. Or maybe somehow
+set it up to provide a standalone service adjunct to a VA site integration.
+
+If you're interested, contact me on github: <a href="https://github.com/haymaker">@haymaker</a>.
